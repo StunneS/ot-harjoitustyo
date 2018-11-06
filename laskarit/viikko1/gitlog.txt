@@ -1,0 +1,114 @@
+commit 7924d132c77f7aa72f8759203819506e361a097e
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 18:41:08 2018 +0200
+
+    Kaikkea
+
+ tiedostoja/file1             | 3 ---
+ tiedostoja/{file2 => file22} | 0
+ 2 files changed, 3 deletions(-)
+
+commit 4a1676faa912c0116fe602203bfed27ad7fa25bf
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 18:26:53 2018 +0200
+
+    test123
+
+ tiedostoja/file1 | 3 +++
+ tiedostoja/file2 | 3 +++
+ tiedostoja/file3 | 2 ++
+ 3 files changed, 8 insertions(+)
+
+commit 227808833a794eda9a60dcaa926ba4ebb8f663b1
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 18:02:16 2018 +0200
+
+    muok eka ja kolmas
+
+ eka.txt    |  9 ++-------
+ kolmas.txt | 10 ++++------
+ 2 files changed, 6 insertions(+), 13 deletions(-)
+
+commit dcbe9f97eab3444eb4fac76260fa524cca56a0b7
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:48:22 2018 +0200
+
+    tied on eka
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit b5b4cc3a8813053c2febba370869af8078b66369
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:46:34 2018 +0200
+
+    toinenpois
+
+ toinen.txt | 6 ------
+ 1 file changed, 6 deletions(-)
+
+commit 71406be62729ad532a07efd537c1c3f2cf04815f
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:41:47 2018 +0200
+
+    Rap teapot
+
+ tiedosto.txt | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
+
+commit 4fdbc5d9d5713b4342ec535da769ba775652226d
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:36:17 2018 +0200
+
+    Rap god
+
+ tiedosto.txt | 186 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 185 insertions(+), 1 deletion(-)
+
+commit 0d6ceab620481b824f614e6612c27f4f7017f948
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:19:31 2018 +0200
+
+    uusi dir tehty
+
+ stuff/testausta.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit d21cd20e4566e6b9609bbfbf8de7d4ab7ccd9bea
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:14:19 2018 +0200
+
+    sanoja lisätty
+
+ kolmas.txt | 7 +++++++
+ toinen.txt | 6 ++++++
+ 2 files changed, 13 insertions(+)
+
+commit 01f3001217e5c3c768a2ae31bc8b4ad7372d35af
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:10:28 2018 +0200
+
+    kolmas lisätty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 3dbceb0c1b14cc35a6ad7069094ae2d728c27bba
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 17:06:05 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 3 +++
+ toinen.txt   | 0
+ 2 files changed, 3 insertions(+)
+
+commit 9ec214cb1805044b0f5311f066ba80ee93bbaf58
+Author: Sade-Tuuli <tuulei_@hotmail.com>
+Date:   Thu Nov 1 16:57:29 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
