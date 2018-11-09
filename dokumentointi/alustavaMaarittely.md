@@ -1,6 +1,6 @@
 ## Alustava määrittely
 ### Sovelluksen tarkoitus
-Sovelluksen on tarkoitus olla toimiva Miinaharava peli.
+Sovelluksen on tarkoitus olla toimiva Miinaharava peli, jossa kolme perus kokoa.
 ### Toiminnallisuudet
 #### Perustoiminnallisuus
 -Miinaharavan pelaaminen
