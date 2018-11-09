@@ -3,6 +3,7 @@
 ## Miinaharava
 
 [Työn alustava määrittely](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentointi/alustavaMaarittely.md)
+
 [Työmäärän kirjanpito](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
 
 ## Tehtävät
