@@ -6,5 +6,7 @@ Sovelluksen on tarkoitus olla toimiva Miinaharava peli.
 -Miinaharavan pelaaminen
 #### Jatkokehitysideat
 -Kentän koon määrittäminen
+
 -Parhaiden tulosten listaus
+
 -Pommien määrän määritys
