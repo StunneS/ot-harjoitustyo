@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import com.mycompany.miinaharava.Minesweeper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,9 +15,9 @@ import static org.junit.Assert.*;
  *
  * @author Sade-Tuuli
  */
-public class MainTest {
-    Minesweeper mine;
-    public MainTest() {
+public class GridTest {
+    
+    public GridTest() {
     }
     
     @BeforeClass
@@ -42,9 +41,4 @@ public class MainTest {
     //
     // @Test
     // public void hello() {}
-    /*@Test
-    public void kaynnistyy() {
-        mine = new Minesweeper();
-        assertEquals("Hei maailma!",
-    }*/
 }
