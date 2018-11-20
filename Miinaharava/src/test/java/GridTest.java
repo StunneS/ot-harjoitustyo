@@ -4,19 +4,20 @@
  * and open the template in the editor.
  */
 
+import com.mycompany.miinaharava.Grid;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Sade-Tuuli
  */
 public class GridTest {
-    
+    Grid test;
     public GridTest() {
     }
     
@@ -30,15 +31,32 @@ public class GridTest {
     
     @Before
     public void setUp() {
+        test = new Grid(20,20);
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void rightAmmountOfBombs() {
+        test.placeBombs(30);
+        assertEquals(30, test.getBombs());
+    }
+    
+    @Test
+    public void notAllEmptySpotsInGrid() {
+        test.placeBombs(30);
+        test.checkNeighbors();
+        int[][] help = test.getGrid();
+        boolean onlyZeros = true;
+        for(int x = 0; x < help.length;x++) {
+            for(int y = 0; y < help[0].length;y++) {
+                if(help[x][y] <10 && help[x][y] > 0){
+                    onlyZeros = false;
+                }
+            }
+        }
+        assertEquals(false,onlyZeros);
+    }
 }

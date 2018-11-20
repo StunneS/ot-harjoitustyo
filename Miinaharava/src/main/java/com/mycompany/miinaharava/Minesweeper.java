@@ -13,6 +13,8 @@ public class Minesweeper {
 
     public static void main(String[] args) {
         Grid grid = new Grid(20,20);
+        grid.placeBombs(30);
+        grid.checkNeighbors();
         System.out.println("Hello!");
     } 
 }

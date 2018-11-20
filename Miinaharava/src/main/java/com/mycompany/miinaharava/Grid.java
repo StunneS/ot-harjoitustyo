@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class Grid {
     int[][] places;
     int MINE = 10;
+    int bombs = 0;
     
     public Grid(int x, int y) {
         places = new int[x][y]; 
-        placeBombs(30);
     }
     
     public void placeBombs(int nmbr) {
@@ -31,6 +31,7 @@ public class Grid {
             int random = (int) Math.random() * bombsNotPut.size();
             places[bombsNotPut.get(random)/100][bombsNotPut.get(random)%100] = MINE; 
             bombsNotPut.remove(random);
+            bombs++;
         }
     }
     public void checkNeighbors(){
@@ -47,7 +48,7 @@ public class Grid {
                     if(y > 0 && x <places.length-1 && places[x+1][y-1] == MINE) { // up right
                         neighborCount++;
                     }
-                    if(y > 0 && places[x][y+1] == MINE) { // down
+                    if(y < places.length-1 && places[x][y+1] == MINE) { // down
                         neighborCount++;
                     }
                     if(x > 0 && places[x-1][y] == MINE) { // left
@@ -59,7 +60,7 @@ public class Grid {
                     if(y < places[0].length-1 && x >0 && places[x-1][y+1] == MINE) { // down left
                         neighborCount++;
                     }
-                    if(y < places[0].length-1 && x < places.length && places[x+1][y+1] == MINE) { // down right
+                    if(y < places[0].length-1 && x < places.length-1 && places[x+1][y+1] == MINE) { // down right
                         neighborCount++;
                     }
                     places[x][y] = neighborCount;
@@ -67,5 +68,10 @@ public class Grid {
             }
         }
     }
-    
+    public int getBombs() {
+        return bombs;
+    } 
+    public int[][] getGrid() {
+        return places;
+    }
 }
