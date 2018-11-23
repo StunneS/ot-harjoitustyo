@@ -40,6 +40,7 @@ public class GUI implements ActionListener{
         for(int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 buttons[x][y] = new JButton();
+                buttons[x][y].setText(""+ grid.getNeighbors(x, y));
                 buttons[x][y].addActionListener(this);
                 buttonField.add(buttons[x][y]);
                 
@@ -61,11 +62,12 @@ public class GUI implements ActionListener{
                     buttons[x][y].setText("");
                 }
             }
-        }
-        for (int x = 0; x < buttons.length; x++) {
-            for (int y = 0; y < buttons[0].length; y++) {
-                if(e.getSource().equals(buttons[x][y])) {
-                    buttons[x][y].setText("" + grid.getPlace(x, y));
+        } else {
+            for (int x = 0; x < buttons.length; x++) {
+                for (int y = 0; y < buttons[0].length; y++) {
+                    if(e.getSource().equals(buttons[x][y])) {
+                        buttons[x][y].setText("" + grid.getNeighbors(x, y));
+                    }
                 }
             }
         }

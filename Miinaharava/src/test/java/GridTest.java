@@ -5,6 +5,7 @@
  */
 
 import com.mycompany.miinaharava.Grid;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -48,7 +49,7 @@ public class GridTest {
     public void notAllEmptySpotsInGrid() {
         test.placeBombs(30);
         test.checkNeighbors();
-        int[][] help = test.getGrid();
+        int[][] help = test.getPlaces();
         boolean onlyZeros = true;
         for(int x = 0; x < help.length;x++) {
             for(int y = 0; y < help[0].length;y++) {
@@ -58,5 +59,27 @@ public class GridTest {
             }
         }
         assertEquals(false,onlyZeros);
+    }
+    @Test
+    public void resetWorks() {
+        test.placeBombs(30);
+        test.checkNeighbors();
+        int[][] first = this.test.getPlaces();
+        int[][] second = new int[20][20];
+        for(int x = 0; x < first.length;x++) {
+            for(int y = 0; y < first[0].length;y++) {
+                second[x][y] = first[x][y];   
+            }
+        }
+        this.test.resetGrid();
+        //boolean allAreSame = true;
+        /*for(int x = 0; x < first.length;x++) {
+            for(int y = 0; y < first[0].length;y++) {
+                if(first[x][y] != second[x][y]){
+                    allAreSame = false;
+                }
+            }
+        }*/
+        assertEquals(false,Arrays.deepEquals(first, second));
     }
 }

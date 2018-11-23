@@ -28,7 +28,7 @@ public class Grid {
                 bombsNotPut.add(x*100+y);
             }
         }
-        for(int m = 0; m <= nmbr; m++) {
+        for(int m = 1; m <= nmbr; m++) {
             int random = (int) (Math.random() * bombsNotPut.size());
             places[bombsNotPut.get(random)/100][bombsNotPut.get(random)%100] = MINE; 
             bombsNotPut.remove(random);
@@ -72,10 +72,10 @@ public class Grid {
     public int getBombs() {
         return bombs;
     } 
-    public int[][] getGrid() {
+    public int[][] getPlaces() {
         return places;
     }
-    public int getPlace(int x,int y) {
+    public int getNeighbors(int x,int y) {
         return places[x][y];
     }
     
