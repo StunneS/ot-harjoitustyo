@@ -8,5 +8,5 @@
 | 21.11 | 2 | Graafisen käyttöliittymän luonti |
 | 22.11 | 1 | Koodin debuggaus |
 | 23.11 | 1 | Reset -napin toiminnan luonti |
-| 23.11 | 2 | Koodausta |
+| 23.11 | 3 | Koodausta |
 |yht | 14 ||
