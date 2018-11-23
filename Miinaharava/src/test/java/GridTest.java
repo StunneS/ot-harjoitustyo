@@ -72,14 +72,6 @@ public class GridTest {
             }
         }
         this.test.resetGrid();
-        //boolean allAreSame = true;
-        /*for(int x = 0; x < first.length;x++) {
-            for(int y = 0; y < first[0].length;y++) {
-                if(first[x][y] != second[x][y]){
-                    allAreSame = false;
-                }
-            }
-        }*/
         assertEquals(false,Arrays.deepEquals(first, second));
     }
 }
