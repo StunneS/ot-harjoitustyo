@@ -5,6 +5,8 @@
  */
 package com.mycompany.miinaharava;
 
+import GUI.GUI;
+
 /**
  *
  * @author Sade-Tuuli
@@ -15,6 +17,7 @@ public class Minesweeper {
         Grid grid = new Grid(20,20);
         grid.placeBombs(30);
         grid.checkNeighbors();
+        new GUI(grid);
         System.out.println("Hello!");
     } 
 }

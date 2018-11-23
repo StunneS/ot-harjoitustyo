@@ -21,14 +21,15 @@ public class Grid {
     }
     
     public void placeBombs(int nmbr) {
+        bombs = 0;
         ArrayList<Integer> bombsNotPut = new ArrayList<Integer>();
         for(int x = 0; x < places.length; x++) {
             for(int y = 0; y < places[0].length;y++) {
                 bombsNotPut.add(x*100+y);
             }
         }
-        for(int m = 0; m < nmbr; m++) {
-            int random = (int) Math.random() * bombsNotPut.size();
+        for(int m = 0; m <= nmbr; m++) {
+            int random = (int) (Math.random() * bombsNotPut.size());
             places[bombsNotPut.get(random)/100][bombsNotPut.get(random)%100] = MINE; 
             bombsNotPut.remove(random);
             bombs++;
@@ -73,5 +74,18 @@ public class Grid {
     } 
     public int[][] getGrid() {
         return places;
+    }
+    public int getPlace(int x,int y) {
+        return places[x][y];
+    }
+    
+    public void resetGrid() {
+        for (int x = 0; x < places.length; x++) {
+            for (int y = 0; y < places[0].length; y++) {
+                places[x][y] = 0;
+            }   
+        }
+        placeBombs(bombs);
+        checkNeighbors();
     }
 }
