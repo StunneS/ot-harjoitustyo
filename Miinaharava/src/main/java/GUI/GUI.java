@@ -7,6 +7,7 @@ package GUI;
 
 import com.mycompany.miinaharava.Grid;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -60,6 +61,7 @@ public class GUI implements ActionListener{
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
                     buttons[x][y].setText("");
+                    buttons[x][y].setEnabled(true);
                 }
             }
         } else {
@@ -69,10 +71,12 @@ public class GUI implements ActionListener{
                         if(grid.getNeighbors(x, y) == 10) {
                             showAllNumbers();
                         }
-                        if(grid.getNeighbors(x, y) == 0) {
+                        else if(grid.getNeighbors(x, y) == 0) {
                             openAdjacentZeros(x, y);
+                        } else {
+                            buttons[x][y].setText("" + grid.getNeighbors(x, y));
+                            buttons[x][y].setEnabled(false);
                         }
-                        buttons[x][y].setText("" + grid.getNeighbors(x, y));
                     }
                 }
             }
@@ -81,14 +85,20 @@ public class GUI implements ActionListener{
     public void showAllNumbers() {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
-                buttons[x][y].setText("" + grid.getNeighbors(x, y));
+                if(grid.getPlaces()[x][y] == 10) {
+                    buttons[x][y].setText("X");
+                } else {
+                    buttons[x][y].setText("" + grid.getNeighbors(x, y));
+                }
+                buttons[x][y].setEnabled(false);   
             }
         }
     }
     public void openAdjacentZeros(int x,int y) {
-        ArrayList<Integer> zeros = grid.adjacentWhites(x, y);
+        ArrayList<Integer> zeros = grid.adjacentZeros(x, y);
         for (int i = 0; i < zeros.size(); i++) {
             buttons[zeros.get(i)/100][zeros.get(i)%100].setText("" + grid.getNeighbors(zeros.get(i)/100,zeros.get(i)%100));
+            buttons[zeros.get(i)/100][zeros.get(i)%100].setEnabled(false);
         }
     }
 }
