@@ -104,9 +104,8 @@ public class Grid {
             if(x > 0 && y > 0) { //up left
                 if(!zeros.contains((x-1)*100+(y-1))) {
                     zeros.add((x-1)*100+(y-1));
-                    recursion(x,y-1);
+                    recursion(x-1,y-1);
                 }
-                recursion(x-1,y-1);
             }
             if(y > 0) { // up
                 if(!zeros.contains((x)*100+(y-1))) {

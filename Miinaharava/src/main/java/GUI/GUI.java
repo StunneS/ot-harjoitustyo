@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -73,9 +74,11 @@ public class GUI implements ActionListener{
                         }
                         else if(grid.getNeighbors(x, y) == 0) {
                             openAdjacentZeros(x, y);
+                            checkIfWon();
                         } else {
                             buttons[x][y].setText("" + grid.getNeighbors(x, y));
                             buttons[x][y].setEnabled(false);
+                            checkIfWon();
                         }
                     }
                 }
@@ -85,7 +88,7 @@ public class GUI implements ActionListener{
     public void showAllNumbers() {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
-                if(grid.getPlaces()[x][y] == 10) {
+                if(grid.getNeighbors(x, y) == 10) {
                     buttons[x][y].setText("X");
                 } else {
                     buttons[x][y].setText("" + grid.getNeighbors(x, y));
@@ -99,6 +102,19 @@ public class GUI implements ActionListener{
         for (int i = 0; i < zeros.size(); i++) {
             buttons[zeros.get(i)/100][zeros.get(i)%100].setText("" + grid.getNeighbors(zeros.get(i)/100,zeros.get(i)%100));
             buttons[zeros.get(i)/100][zeros.get(i)%100].setEnabled(false);
+        }
+    }
+    public void checkIfWon() {
+        boolean won = true;
+        for (int x = 0; x < buttons.length; x++) {
+            for (int y = 0; y < buttons[0].length; y++) {
+                if(buttons[x][y].isEnabled() == true && grid.getNeighbors(x, y) != 10) {
+                    won = false;
+                }
+            }
+        }
+        if(won == true) {
+            JOptionPane.showMessageDialog(frame, "You won!");
         }
     }
 }
