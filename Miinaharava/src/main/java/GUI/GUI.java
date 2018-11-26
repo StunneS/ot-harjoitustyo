@@ -9,9 +9,9 @@ import com.mycompany.miinaharava.Grid;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
-import static java.awt.SystemColor.text;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -69,6 +69,9 @@ public class GUI implements ActionListener{
                         if(grid.getNeighbors(x, y) == 10) {
                             showAllNumbers();
                         }
+                        if(grid.getNeighbors(x, y) == 0) {
+                            openAdjacentZeros(x, y);
+                        }
                         buttons[x][y].setText("" + grid.getNeighbors(x, y));
                     }
                 }
@@ -80,6 +83,12 @@ public class GUI implements ActionListener{
             for (int y = 0; y < buttons[0].length; y++) {
                 buttons[x][y].setText("" + grid.getNeighbors(x, y));
             }
+        }
+    }
+    public void openAdjacentZeros(int x,int y) {
+        ArrayList<Integer> zeros = grid.adjacentWhites(x, y);
+        for (int i = 0; i < zeros.size(); i++) {
+            buttons[zeros.get(i)/100][zeros.get(i)%100].setText("" + grid.getNeighbors(zeros.get(i)/100,zeros.get(i)%100));
         }
     }
 }

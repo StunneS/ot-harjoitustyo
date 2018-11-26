@@ -15,9 +15,11 @@ public class Grid {
     int[][] places;
     int MINE = 10;
     int bombs = 0;
+    ArrayList<Integer> zeros;
     
     public Grid(int x, int y) {
         places = new int[x][y]; 
+        zeros = new ArrayList<Integer>();
     }
     
     public void placeBombs(int nmbr) {
@@ -87,5 +89,94 @@ public class Grid {
         }
         placeBombs(bombs);
         checkNeighbors();
+    }
+    
+    public ArrayList<Integer> adjacentWhites (int x,int y) {
+        zeros.clear();
+        zeros.add((x)*100+(y));
+        recursion(x,y);
+        //adjacentNumbers();
+        return zeros;
+    }
+    public void recursion(int x, int y) {
+        if(x < 0 || y < 0 || x > places.length-1 || y >places[0].length || places[x][y] == 10) {
+            return;
+        }
+        if(!zeros.contains((x)*100+(y))) {
+            zeros.add(x*100+y);
+        }
+        if(x > 0 && y > 0 && places[x-1][y-1] == 0) { //up left
+            if(!zeros.contains((x-1)*100+(y-1))) {
+                recursion(x-1,y-1);
+            }
+        }
+        if(y > 0 && places[x][y-1] == 0) { // up
+            if(!zeros.contains((x)*100+(y-1))) {
+                recursion(x,y-1);
+            }
+        }
+        if(y > 0 && x < places.length-1 && places[x+1][y-1] == 0) { // up right
+            if(!zeros.contains((x-1)*100+(y-1))) {
+                recursion(x-1,y-1);
+            }
+        }
+        if(y < places.length-1 && places[x][y+1] == 0) { // down
+            if(!zeros.contains((x)*100+(y+1))) {
+                recursion(x,y+1);
+            }
+        }
+        if(x > 0 && places[x-1][y] == 0) { // left
+            if(!zeros.contains((x-1)*100+(y))) {
+                recursion(x-1,y);
+            }
+        }
+        if(x < places.length-1 && places[x+1][y] == 0) { // right
+            if(!zeros.contains((x+1)*100+(y))) {
+                recursion(x+1,y);
+            }
+        }
+        if(y < places[0].length-1 && x >0 && places[x-1][y+1] == 0) { // down left
+            if(!zeros.contains((x-1)*100+(y+1))) {
+                recursion(x-1,y+1);
+            }
+        }
+        if(y < places[0].length-1 && x < places.length-1 && places[x+1][y+1] == 0) { // down right
+            if(!zeros.contains((x+1)*100+(y+1))) {
+                recursion(x+1,y+1);
+            }
+        }
+    }
+    public void adjacentNumbers() {
+        for (int i = 0; i < zeros.size(); i++) {
+            int x = zeros.get(i)/100;
+            int y = zeros.get(i)%100;
+            if(places[x][y] == 0) {
+                
+                if(x > 0 && y > 0) { //up left
+                    zeros.add((x-1)*100+(y-1));
+                }
+                if(y > 0 && places[x][y-1] == 0) { // up
+                    zeros.add((x)*100+(y-1));
+                }
+                if(y > 0 && x < places.length-1) { // up right
+                    zeros.add((x-1)*100+(y-1));
+                }
+                if(y < places.length-1) { // down
+                    zeros.add((x)*100+(y+1));
+                }
+                if(x > 0) { // left
+                    zeros.add((x-1)*100+(y));
+                }
+                if(x < places.length-1) { // right
+                    zeros.add((x+1)*100+(y));
+                }
+                if(y < places[0].length-1 && x >0) { // down left
+                    zeros.add((x-1)*100+(y+1));
+                }
+                if(y < places[0].length-1 && x < places.length-1) { // down right
+                    zeros.contains((x+1)*100+(y+1));
+                }
+            }
+        }
     }
 }
