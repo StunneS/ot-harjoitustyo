@@ -9,5 +9,5 @@
 | 22.11 | 1 | Koodin debuggaus |
 | 23.11 | 1 | Reset -napin toiminnan luonti |
 | 23.11 | 3 | Koodausta |
-| 26.11 | 3 | Koodausta |
-|yht | 18 ||
+| 26.11 | 4 | Koodausta |
+|yht | 19 ||
