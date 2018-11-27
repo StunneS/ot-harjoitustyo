@@ -30,7 +30,7 @@ public class GUI implements ActionListener{
     Grid grid;
     
     public GUI(Grid grid) {
-        this.grid = grid;
+        /*this.grid = grid;
         frame.setSize(1000,500);
         frame.setLayout(new BorderLayout());
         
@@ -52,12 +52,12 @@ public class GUI implements ActionListener{
         frame.add(buttonField,BorderLayout.CENTER);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        frame.setVisible(true); */
     }
 
     public void actionPerformed(ActionEvent e) {
         //resetille metodi
-        if(e.getSource().equals(reset)) {
+        /*if(e.getSource().equals(reset)) {
             grid.resetGrid();
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
@@ -65,6 +65,7 @@ public class GUI implements ActionListener{
                     buttons[x][y].setEnabled(true);
                 }
             }
+            //muut napit
         } else {
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
@@ -83,7 +84,7 @@ public class GUI implements ActionListener{
                     }
                 }
             }
-        }   
+        }   */
     }
     public void showAllNumbers() {
         for (int x = 0; x < buttons.length; x++) {
@@ -114,6 +115,7 @@ public class GUI implements ActionListener{
             }
         }
         if(won == true) {
+            showAllNumbers();
             JOptionPane.showMessageDialog(frame, "You won!");
         }
     }
