@@ -12,6 +12,14 @@ Ohjelma luo käynnistettäessä 20x20 kaksiulotteisen taulukon johon se sijoitta
 
 ## Komentorivitoiminnot
 
+### Käynnistys
+
+Ohjelman saa käynnistettyä komennolla
+
+```
+mvn compile exec:java -Dexec.mainClass=guifx.GUIJavaFX
+```
+
 ### Testaus
 
 Testit suoritetaan komennolla
