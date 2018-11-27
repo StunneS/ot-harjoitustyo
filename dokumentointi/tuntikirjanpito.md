@@ -10,4 +10,5 @@
 | 23.11 | 1 | Reset -napin toiminnan luonti |
 | 23.11 | 3 | Koodausta |
 | 26.11 | 4 | Koodausta |
-|yht | 19 ||
+| 27.11 | 3 | Graafisen käyttöliittymän muokkaaminen Swingistä JavaFX:ään |
+|yht | 22 ||
