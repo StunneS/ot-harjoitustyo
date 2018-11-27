@@ -46,7 +46,7 @@ public class GUIJavaFX extends Application {
             grid.resetGrid();
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
-                    buttons[x][y].setText("  ");
+                    buttons[x][y].setText("   ");
                 }
             }
             System.out.println("Painettu reset!");
