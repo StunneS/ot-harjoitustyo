@@ -12,4 +12,5 @@
 | 26.11 | 4 | Koodausta |
 | 27.11 | 3 | Graafisen käyttöliittymän muokkaaminen Swingistä JavaFX:ään |
 | 27.11 | 2 | Testien tekeminen |
-|yht | 24 ||
+| 3.12 | 4 | Ohjelman laajennus|
+|yht | 28 ||
