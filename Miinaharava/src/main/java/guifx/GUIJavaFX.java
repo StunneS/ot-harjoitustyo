@@ -24,6 +24,7 @@ public class GUIJavaFX extends Application {
 
     private Grid grid;
     private Button[][] buttons;
+    private Label victory;
 
     @Override
     public void init() throws Exception {
@@ -43,12 +44,12 @@ public class GUIJavaFX extends Application {
         Button reset = new Button("Reset");
         reset.setOnAction((event) -> {
             grid.resetGrid();
+            victory.setText("");
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
-                    buttons[x][y].setText("   ");
+                    buttons[x][y].setText("");
                 }
             }
-            System.out.println("Painettu reset!");
         });
 
         buttons = new Button[20][20];
@@ -58,7 +59,9 @@ public class GUIJavaFX extends Application {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 buttons[x][y] = new Button();
-                buttons[x][y].setText("   ");
+                buttons[x][y].setText("");
+                buttons[x][y].setMinSize(30,30);
+                buttons[x][y].setMaxSize(30,30);
                 final int xx = x;
                 final int yy = y;
                 buttons[x][y].setOnAction((event) -> {
@@ -68,9 +71,24 @@ public class GUIJavaFX extends Application {
             }
         }
         FlowPane top = new FlowPane();
-        Label victory = new Label("");
+        victory = new Label("");
+        
+        /*Button easy = new Button("Easy");
+        easy.setOnAction((event) -> {
+            grid = new Grid(8,8);
+            grid.placeBombs(16);
+            buttons = new Button[8][8];
+            for (int x = 0; x < buttons.length; x++) {
+                for (int y = 0; y < buttons[0].length; y++) {
+                    buttons[x][y].setText("");
+                }
+            }
+            System.out.println("Small");
+        }); */
+        
         top.getChildren().add(reset);
         top.getChildren().add(victory);
+        //top.getChildren().add(easy);
 
         frame.setTop(top);
         frame.setCenter(buttonField);
@@ -89,10 +107,10 @@ public class GUIJavaFX extends Application {
             showAllNumbers();
         } else if (grid.getNeighbors(x, y) == 0) {
             openAdjacentZeros(x, y);
-            //checkIfWon();
+            checkIfWon();
         } else {
-            buttons[x][y].setText("" + grid.getNeighbors(x, y) + "");
-            //checkIfWon();
+            buttons[x][y].setText("" + grid.getNeighbors(x, y));
+            checkIfWon();
         }
     }
 
@@ -119,13 +137,14 @@ public class GUIJavaFX extends Application {
         boolean won = true;
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
-                if (buttons[x][y].getText().equals("   ") && grid.getNeighbors(x, y) != 10) {
+                if (buttons[x][y].getText().equals("") && grid.getNeighbors(x, y) != 10) {
                     won = false;
                 }
             }
         }
         if (won == true) {
             showAllNumbers();
+            victory.setText("    Victory!");
         }
     }
 }

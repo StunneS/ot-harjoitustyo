@@ -77,9 +77,10 @@ public class GridTest {
         this.test.resetGrid();
         assertEquals(false, Arrays.deepEquals(first, second));
     }
+
     @Test
     public void neighborCountIsRight() {
-        Grid test1 = new Grid(4,8);
+        Grid test1 = new Grid(4, 8);
         test1.placeBombs(30);
         test1.checkNeighbors();
         int[][] help = test1.getPlaces();
@@ -92,11 +93,12 @@ public class GridTest {
                 }
             }
         }
-        if(nonbombs == 2) {
+        if (nonbombs == 2) {
             twoWithRightNeighbors = true;
         }
         assertEquals(true, twoWithRightNeighbors);
     }
+
     @Test
     public void adjacentZerosAreCorrect() {
         test.checkNeighbors();
