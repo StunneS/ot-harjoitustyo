@@ -16,6 +16,7 @@ public class Grid {
     int[][] places;
     int mine = 10;
     int bombs = 0;
+    int win = 0;
     ArrayList<Integer> zeros;
 
     public Grid(int x, int y) {
@@ -157,4 +158,5 @@ public class Grid {
             }
         }
     }
+    
 }
