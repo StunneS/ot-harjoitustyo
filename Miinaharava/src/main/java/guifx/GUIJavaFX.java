@@ -8,10 +8,12 @@ package guifx;
 import com.mycompany.miinaharava.Grid;
 import java.util.ArrayList;
 import javafx.application.Application;
-import javafx.geometry.Pos;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -38,18 +40,19 @@ public class GUIJavaFX extends Application {
         grid.placeBombs(40);
         grid.checkNeighbors();
     }
-    public void init(int x){
-        if(x == 1) {
+
+    public void init(int x) {
+        if (x == 1) {
             currentX = 8;
             currentY = 8;
             grid = new Grid(currentX, currentY);
             grid.placeBombs(10);
-        } else if(x == 2) {
+        } else if (x == 2) {
             currentX = 16;
             currentY = 16;
             grid = new Grid(currentX, currentY);
             grid.placeBombs(40);
-        } else if(x == 3) {
+        } else if (x == 3) {
             currentX = 24;
             currentY = 24;
             grid = new Grid(currentX, currentY);
@@ -82,38 +85,37 @@ public class GUIJavaFX extends Application {
         buttons = new Button[currentX][currentY];
         GridPane buttonField = new GridPane();
         makeButtonfield(buttonField); //Buttons visual made
-        
+
         FlowPane top = new FlowPane();
         VBox right = new VBox();
         victory = new Label("");
-        
+
         Button easy = new Button("Easy"); //CREATE new "Easy" board
         easy.setMinSize(100, 30);
         easy.setOnAction((event) -> {
             init(1);
             start(window);
-        }); 
-        
+        });
+
         Button medium = new Button("Medium"); //CREATE new "Medium" board
         medium.setMinSize(100, 30);
         medium.setOnAction((event) -> {
             init(2);
             start(window);
-        }); 
-        
+        });
+
         Button hard = new Button("Hard"); //CREATE new "Hard" board
         hard.setMinSize(100, 30);
         hard.setOnAction((event) -> {
             init(3);
             start(window);
-        }); 
-        
+        });
+
         top.getChildren().add(reset);
         top.getChildren().add(victory);
         right.getChildren().add(easy);
         right.getChildren().add(medium);
         right.getChildren().add(hard);
-
 
         frame.setTop(top);
         frame.setRight(right);
@@ -129,8 +131,10 @@ public class GUIJavaFX extends Application {
         launch(GUIJavaFX.class);
     }
 
-    public void setButtonAction(int x, int y) {
-        if (grid.getNeighbors(x, y) == 10) {
+    public void setButtonActionLeft(int x, int y) {
+        if(buttons[x][y].getText().equals("B")) {
+            return;
+        } else if (grid.getNeighbors(x, y) == 10) {
             showAllNumbers();
         } else if (grid.getNeighbors(x, y) == 0) {
             openAdjacentZeros(x, y);
@@ -164,7 +168,7 @@ public class GUIJavaFX extends Application {
         boolean won = true;
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
-                if ((buttons[x][y].getText().equals("") && grid.getNeighbors(x, y) != 10 ) || buttons[x][y].getText().equals("X")) {
+                if ((buttons[x][y].getText().equals("") && grid.getNeighbors(x, y) != 10) || buttons[x][y].getText().equals("X")) {
                     won = false;
                 }
             }
@@ -174,28 +178,50 @@ public class GUIJavaFX extends Application {
             victory.setText("    Victory!");
         }
     }
+
     public void makeButtonfield(GridPane buttonField) {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 buttons[x][y] = new Button();
                 buttons[x][y].setText("");
-                if(currentX == 8) {
-                    buttons[x][y].setMinSize(84,84);
-                    buttons[x][y].setMaxSize(84,84);
-                } else if(currentX == 16) {
-                    buttons[x][y].setMinSize(42,42);
-                    buttons[x][y].setMaxSize(42,42);
+                if (currentX == 8) {
+                    buttons[x][y].setMinSize(84, 84);
+                    buttons[x][y].setMaxSize(84, 84);
+                } else if (currentX == 16) {
+                    buttons[x][y].setMinSize(42, 42);
+                    buttons[x][y].setMaxSize(42, 42);
                 } else {
-                    buttons[x][y].setMinSize(28,28);
-                    buttons[x][y].setMaxSize(28,28);
+                    buttons[x][y].setMinSize(28, 28);
+                    buttons[x][y].setMaxSize(28, 28);
                 }
                 final int xx = x;
                 final int yy = y;
-                buttons[x][y].setOnAction((event) -> {
-                    setButtonAction(xx, yy);
+                
+                buttons[x][y].setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        MouseButton button = event.getButton();
+                        if (button == MouseButton.PRIMARY) {
+                            setButtonActionLeft(xx, yy);
+                        } else if (button == MouseButton.SECONDARY) {
+                            setButtonActionRight(xx, yy);
+                        }
+                        /*else if(button==MouseButton.MIDDLE){
+                    label.setText("MIDDLE button clicked on button"); tänne metodi että middlemouse avaa ympäröivät ruudut jos tarpeeksi pommeja merkitty
+                } */
+                    }
                 });
                 buttonField.add(buttons[x][y], x, y);
             }
+        }
+    }
+    public void setButtonActionRight(int x, int y) {
+        if (buttons[x][y].getText().equals("B")) {
+            buttons[x][y].setText("");
+        }else if (!buttons[x][y].getText().equals("")){
+            return;
+        } else {
+            buttons[x][y].setText("B");
         }
     }
 }
