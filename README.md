@@ -1,9 +1,12 @@
 # Ohjelmistotekniikka, harjoitustyö
 
 ## Miinaharava
-Ohjelma luo käynnistettäessä 20x20 kaksiulotteisen taulukon johon se sijoittaa sattumanvaraisesti 30 pommia ja tämän jälkeen laskee kaikille taulukoiden arvoille luvun joka kertoo montako pommia kunkin ruudun vieressä on. Testit testaavat pommien oikean määrän sekä naapuroivien pommien laskun kaikille ruuduille.
+Ohjelma luo käynnistettäessä 16x16 kaksiulotteisen taulukon johon se sijoittaa sattumanvaraisesti 40 pommia ja tämän jälkeen laskee kaikille taulukoiden arvoille luvun joka kertoo montako pommia kunkin ruudun vieressä on. Testit testaavat pommien oikean määrän sekä naapuroivien pommien laskun kaikille ruuduille.
  
- Ohjelmalla on graafinen käyttöliittymä, jossa peli toimii, mutta pommeja ei voi merkitä. Pelin voi resettaa ja jos peli pelataan läpi, ohjelma paljastaa pommit merkillä X. Jos pelaaja painaa pommia, peli paljastaa kaikkien nappien arvot.
+ Ohjelmalla on graafinen käyttöliittymä, jossa peli toimii. Pelissä voi merkata mahdollisia pommeja lipuilla oikealla hiiren painekkeella. Pelin voi resettaa ja jos peli pelataan läpi, ohjelma paljastaa pommien paikat ja antaa "Victory!" -tekstin. Jos pelaaja painaa pommia, peli paljastaa kaikkien nappien arvot, ja näyttää painetun pommin punaisella rastilla.
+
+Pelissä on kolme valmiiksi määriteltyä kokoa, easy(8x8) jossa 10 pommia, medium(16x16) jossa 40 pommia sekä hard(24x24) jossa on 99 pommia.
+
 ### Dokumentaatio
 [Työn suunnitelma ja määrittely](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentointi/alustavaMaarittely.md)
 
