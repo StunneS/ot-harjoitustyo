@@ -62,7 +62,6 @@ public class GUIJavaFX extends Application {
             grid.placeBombs(99);
         }
         grid.checkNeighbors();
-        System.out.println("Hello!");
     }
 
     @Override
@@ -202,7 +201,8 @@ public class GUIJavaFX extends Application {
                             setButtonActionLeft(xx, yy);
                         } else if (button == MouseButton.SECONDARY) {
                             setButtonActionRight(xx, yy);
-                        } /*else if(button==MouseButton.MIDDLE){
+                        }
+                        /*else if(button==MouseButton.MIDDLE){
                     tänne metodi että middlemouse avaa ympäröivät ruudut jos tarpeeksi pommeja merkitty
                 } */
                     }
