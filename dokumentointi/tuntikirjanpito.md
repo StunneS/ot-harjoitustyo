@@ -13,4 +13,5 @@
 | 27.11 | 3 | Graafisen käyttöliittymän muokkaaminen Swingistä JavaFX:ään |
 | 27.11 | 2 | Testien tekeminen |
 | 3.12 | 4 | Ohjelman laajennus ja ulkonäön siistintä |
-|yht | 28 ||
+| 4.12 | 6 | Koodausta ja siistintää |
+|yht | 34 ||
