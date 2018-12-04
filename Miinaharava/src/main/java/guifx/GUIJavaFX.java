@@ -82,6 +82,7 @@ public class GUIJavaFX extends Application {
                 for (int y = 0; y < buttons[0].length; y++) {
                     //buttons[x][y].setText("");
                     buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
+                    buttons[x][y].setId("");
                 }
             }
         });
@@ -139,11 +140,19 @@ public class GUIJavaFX extends Application {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 if (grid.getNeighbors(x, y) == 10) {
-                    //buttons[x][y].setText("X");
-                    buttons[x][y].setGraphic(new ImageView(images.setImage(11)));
+                    if(buttons[x][y].getId().equals("boom")) {
+                        buttons[x][y].setGraphic(new ImageView(images.setImage(12)));
+                    } else {
+                        //buttons[x][y].setText("X");
+                        buttons[x][y].setGraphic(new ImageView(images.setImage(11)));
+                    }
                 } else {
                     //buttons[x][y].setText("" + grid.getNeighbors(x, y));
-                    buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
+                    if(buttons[x][y].getId().equals("flagged")) {
+                        buttons[x][y].setGraphic(new ImageView(images.setImage(13)));
+                    } else {
+                        buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
+                    }
                 }
             }
         }
@@ -152,9 +161,11 @@ public class GUIJavaFX extends Application {
     public void openAdjacentZeros(int x, int y) {
         ArrayList<Integer> zeros = grid.adjacentZeros(x, y);
         for (int i = 0; i < zeros.size(); i++) {
-            //buttons[zeros.get(i) / 100][zeros.get(i) % 100].setText("" + grid.getNeighbors(zeros.get(i) / 100,zeros.get(i) % 100));
-            buttons[zeros.get(i) / 100][zeros.get(i) % 100].setGraphic(new ImageView(images.setImage(grid.getNeighbors(zeros.get(i) / 100, zeros.get(i) % 100))));
-            buttons[zeros.get(i) / 100][zeros.get(i) % 100].setId("open");
+            //buttons[zeros.get(i) / 100][zeros.get(i) % 100].setText("" + grid.getNeighbors(zeros.get(i) / 100,zeros.get(i) % 100))
+            if(!buttons[zeros.get(i) / 100][zeros.get(i) % 100].getId().equals("flagged")) {
+                buttons[zeros.get(i) / 100][zeros.get(i) % 100].setGraphic(new ImageView(images.setImage(grid.getNeighbors(zeros.get(i) / 100, zeros.get(i) % 100))));
+                buttons[zeros.get(i) / 100][zeros.get(i) % 100].setId("open");
+            }
         }
     }
 
@@ -180,16 +191,10 @@ public class GUIJavaFX extends Application {
                 //buttons[x][y].setText("");
                 buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
                 buttons[x][y].setId("");
-                if (currentX == 8) {
-                    buttons[x][y].setMinSize(24, 24); //84
-                    buttons[x][y].setMaxSize(24, 24);
-                } else if (currentX == 16) {
-                    buttons[x][y].setMinSize(24, 24); //42
-                    buttons[x][y].setMaxSize(24, 24);
-                } else {
-                    buttons[x][y].setMinSize(24, 24); //28
-                    buttons[x][y].setMaxSize(24, 24);
-                }
+                
+                buttons[x][y].setMinSize(24, 24);
+                buttons[x][y].setMaxSize(24, 24);
+                
                 final int xx = x;
                 final int yy = y;
                 
@@ -203,7 +208,7 @@ public class GUIJavaFX extends Application {
                             setButtonActionRight(xx, yy);
                         }
                         /*else if(button==MouseButton.MIDDLE){
-                    label.setText("MIDDLE button clicked on button"); tänne metodi että middlemouse avaa ympäröivät ruudut jos tarpeeksi pommeja merkitty
+                    tänne metodi että middlemouse avaa ympäröivät ruudut jos tarpeeksi pommeja merkitty
                 } */
                     }
                 });
