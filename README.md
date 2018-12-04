@@ -7,6 +7,10 @@ Ohjelma luo käynnistettäessä 16x16 kaksiulotteisen taulukon johon se sijoitta
 
 Pelissä on kolme valmiiksi määriteltyä kokoa, easy(8x8) jossa 10 pommia, medium(16x16) jossa 40 pommia sekä hard(24x24) jossa on 99 pommia.
 
+### Realease
+
+[Viikon 5 release](https://github.com/StunneS/ot-harjoitustyo/releases/tag/viikko5)
+
 ### Dokumentaatio
 [Työn suunnitelma ja määrittely](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentointi/alustavaMaarittely.md)
 
