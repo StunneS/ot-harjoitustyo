@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +29,7 @@ public class GUIJavaFX extends Application {
 
     private Grid grid;
     private Button[][] buttons;
+    private ImageHandler images;
     private Label victory;
     private Integer currentX;
     private Integer currentY;
@@ -39,6 +41,7 @@ public class GUIJavaFX extends Application {
         grid = new Grid(currentX, currentY);
         grid.placeBombs(40);
         grid.checkNeighbors();
+        images = new ImageHandler();
     }
 
     public void init(int x) {
@@ -77,7 +80,8 @@ public class GUIJavaFX extends Application {
             victory.setText("");
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
-                    buttons[x][y].setText("");
+                    //buttons[x][y].setText("");
+                    buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
                 }
             }
         });
@@ -131,27 +135,15 @@ public class GUIJavaFX extends Application {
         launch(GUIJavaFX.class);
     }
 
-    public void setButtonActionLeft(int x, int y) {
-        if(buttons[x][y].getText().equals("B")) {
-            return;
-        } else if (grid.getNeighbors(x, y) == 10) {
-            showAllNumbers();
-        } else if (grid.getNeighbors(x, y) == 0) {
-            openAdjacentZeros(x, y);
-            checkIfWon();
-        } else {
-            buttons[x][y].setText("" + grid.getNeighbors(x, y));
-            checkIfWon();
-        }
-    }
-
     public void showAllNumbers() {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 if (grid.getNeighbors(x, y) == 10) {
-                    buttons[x][y].setText("X");
+                    //buttons[x][y].setText("X");
+                    buttons[x][y].setGraphic(new ImageView(images.setImage(11)));
                 } else {
-                    buttons[x][y].setText("" + grid.getNeighbors(x, y));
+                    //buttons[x][y].setText("" + grid.getNeighbors(x, y));
+                    buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
                 }
             }
         }
@@ -160,7 +152,9 @@ public class GUIJavaFX extends Application {
     public void openAdjacentZeros(int x, int y) {
         ArrayList<Integer> zeros = grid.adjacentZeros(x, y);
         for (int i = 0; i < zeros.size(); i++) {
-            buttons[zeros.get(i) / 100][zeros.get(i) % 100].setText("" + grid.getNeighbors(zeros.get(i) / 100, zeros.get(i) % 100));
+            //buttons[zeros.get(i) / 100][zeros.get(i) % 100].setText("" + grid.getNeighbors(zeros.get(i) / 100,zeros.get(i) % 100));
+            buttons[zeros.get(i) / 100][zeros.get(i) % 100].setGraphic(new ImageView(images.setImage(grid.getNeighbors(zeros.get(i) / 100, zeros.get(i) % 100))));
+            buttons[zeros.get(i) / 100][zeros.get(i) % 100].setId("open");
         }
     }
 
@@ -168,7 +162,7 @@ public class GUIJavaFX extends Application {
         boolean won = true;
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
-                if ((buttons[x][y].getText().equals("") && grid.getNeighbors(x, y) != 10) || buttons[x][y].getText().equals("X")) {
+                if ((buttons[x][y].getId().equals("") && grid.getNeighbors(x, y) != 10) || buttons[x][y].getId().equals("boom")) {
                     won = false;
                 }
             }
@@ -183,16 +177,18 @@ public class GUIJavaFX extends Application {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 buttons[x][y] = new Button();
-                buttons[x][y].setText("");
+                //buttons[x][y].setText("");
+                buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
+                buttons[x][y].setId("");
                 if (currentX == 8) {
-                    buttons[x][y].setMinSize(84, 84);
-                    buttons[x][y].setMaxSize(84, 84);
+                    buttons[x][y].setMinSize(24, 24); //84
+                    buttons[x][y].setMaxSize(24, 24);
                 } else if (currentX == 16) {
-                    buttons[x][y].setMinSize(42, 42);
-                    buttons[x][y].setMaxSize(42, 42);
+                    buttons[x][y].setMinSize(24, 24); //42
+                    buttons[x][y].setMaxSize(24, 24);
                 } else {
-                    buttons[x][y].setMinSize(28, 28);
-                    buttons[x][y].setMaxSize(28, 28);
+                    buttons[x][y].setMinSize(24, 24); //28
+                    buttons[x][y].setMaxSize(24, 24);
                 }
                 final int xx = x;
                 final int yy = y;
@@ -215,13 +211,32 @@ public class GUIJavaFX extends Application {
             }
         }
     }
+    public void setButtonActionLeft(int x, int y) {
+        if(buttons[x][y].getId().equals("flagged")) {
+            return;
+        } else if (grid.getNeighbors(x, y) == 10) {
+            buttons[x][y].setId("boom");
+            showAllNumbers();
+        } else if (grid.getNeighbors(x, y) == 0) {
+            openAdjacentZeros(x, y);
+            checkIfWon();
+        } else {
+            //buttons[x][y].setText("" + grid.getNeighbors(x, y));
+            buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
+            buttons[x][y].setId("open");
+            checkIfWon();
+        }
+    }
     public void setButtonActionRight(int x, int y) {
-        if (buttons[x][y].getText().equals("B")) {
-            buttons[x][y].setText("");
-        }else if (!buttons[x][y].getText().equals("")){
+        if ( /*buttons[x][y].getText().equals("B") */ buttons[x][y].getId().equals("flagged")) {
+            //buttons[x][y].setText("");
+            buttons[x][y].setGraphic(new ImageView(images.setImage(9))); 
+            buttons[x][y].setId(""); 
+        }else if (/*!buttons[x][y].getText().equals("")*/ buttons[x][y].getId().equals("open")){
             return;
         } else {
-            buttons[x][y].setText("B");
+            buttons[x][y].setGraphic(new ImageView(images.setImage(10)));
+            buttons[x][y].setId("flagged");
         }
     }
 }
