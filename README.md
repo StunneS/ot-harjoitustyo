@@ -12,6 +12,7 @@ Pelissä on kolme valmiiksi määriteltyä kokoa, easy(8x8) jossa 10 pommia, med
 
 [Työmäärän kirjanpito](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
 
+[Työn arkkitehtuuri](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 ## Komentorivitoiminnot
 
