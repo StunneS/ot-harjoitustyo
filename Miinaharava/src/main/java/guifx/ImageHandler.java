@@ -12,7 +12,9 @@ import javafx.scene.image.Image;
  * @author Sade-Tuuli
  */
 public class ImageHandler {
+
     private Image[] images;
+
     public ImageHandler() {
         images = new Image[14];
         images[0] = new Image("file:resources\\exposed.png");
@@ -30,12 +32,14 @@ public class ImageHandler {
         images[12] = new Image("file:resources\\hitmine.png");
         images[13] = new Image("file:resources\\wrongmine.png");
     }
+
     public Image setImage(int x) {
         return images[x];
     }
+
     public int getImageNumber(Image x) {
-        for(int i = 0; i < images.length; i++) {
-            if(x.toString().equals(images[0].toString())) {
+        for (int i = 0; i < images.length; i++) {
+            if (x.toString().equals(images[0].toString())) {
                 return 1;
             }
         }
