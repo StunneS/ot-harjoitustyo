@@ -14,4 +14,5 @@
 | 27.11 | 2 | Testien tekeminen |
 | 3.12 | 4 | Ohjelman laajennus ja ulkonäön siistintä |
 | 4.12 | 6 | Koodausta ja siistintää |
-|yht | 34 ||
+| 10.12 | 2 | Pelin aloituksen parannus ja pommilaskurin lisääminen, sekä testien lisäys |
+|yht | 36 ||
