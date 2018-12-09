@@ -9,6 +9,7 @@ import com.mycompany.miinaharava.Grid;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,6 +32,8 @@ public class GUIJavaFX extends Application {
     private Button[][] buttons;
     private ImageHandler images;
     private Label victory;
+    private Integer bombCount;
+    private Label unmarkedBombs;
     private Integer currentX;
     private Integer currentY;
     private Integer bombNmbr;
@@ -43,9 +46,8 @@ public class GUIJavaFX extends Application {
         grid = new Grid(currentX, currentY);
         bombNmbr = 40;
         first = true;
-        //grid.placeBombs(40);
-        //grid.checkNeighbors();
         images = new ImageHandler();
+        bombCount = bombNmbr;
     }
 
     public void init(int x) {
@@ -53,23 +55,21 @@ public class GUIJavaFX extends Application {
             currentX = 8;
             currentY = 8;
             grid = new Grid(currentX, currentY);
-            //grid.placeBombs(10);
             bombNmbr = 10;
         } else if (x == 2) {
             currentX = 16;
             currentY = 16;
             grid = new Grid(currentX, currentY);
-            //grid.placeBombs(40);
             bombNmbr = 40;
         } else if (x == 3) {
             currentX = 24;
             currentY = 24;
             grid = new Grid(currentX, currentY);
-            //grid.placeBombs(99);
             bombNmbr = 99;
         }
-        //grid.checkNeighbors();
         first = true;
+        bombCount = bombNmbr;
+        unmarkedBombs.setText("Bombs: " + bombCount);
     }
 
     @Override
@@ -92,6 +92,8 @@ public class GUIJavaFX extends Application {
                 }
             }
             first = true;
+            bombCount = bombNmbr;
+        unmarkedBombs.setText("Bombs: " + bombCount);
         });
 
         buttons = new Button[currentX][currentY];
@@ -99,8 +101,10 @@ public class GUIJavaFX extends Application {
         makeButtonfield(buttonField); //Buttons visual made
 
         FlowPane top = new FlowPane();
+        top.setHgap(30);
         VBox right = new VBox();
         victory = new Label("");
+        unmarkedBombs = new Label("Bombs: " + bombCount);
 
         Button easy = new Button("Easy"); //CREATE new "Easy" board
         easy.setMinSize(100, 30);
@@ -125,6 +129,7 @@ public class GUIJavaFX extends Application {
 
         top.getChildren().add(reset);
         top.getChildren().add(victory);
+        top.getChildren().add(unmarkedBombs);
         right.getChildren().add(easy);
         right.getChildren().add(medium);
         right.getChildren().add(hard);
@@ -248,11 +253,15 @@ public class GUIJavaFX extends Application {
         if (buttons[x][y].getId().equals("flagged")) {
             buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
             buttons[x][y].setId("");
+            bombCount++;   
+            unmarkedBombs.setText("Bombs: " + bombCount);
         } else if (buttons[x][y].getId().equals("open")) {
             return;
         } else {
             buttons[x][y].setGraphic(new ImageView(images.setImage(10)));
             buttons[x][y].setId("flagged");
+            bombCount--;
+            unmarkedBombs.setText("Bombs: " + bombCount);
         }
     }
 }
