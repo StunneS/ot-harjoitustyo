@@ -33,14 +33,18 @@ public class GUIJavaFX extends Application {
     private Label victory;
     private Integer currentX;
     private Integer currentY;
+    private Integer bombNmbr;
+    private boolean first;
 
     @Override
     public void init() throws Exception {
         currentX = 16;
         currentY = 16;
         grid = new Grid(currentX, currentY);
-        grid.placeBombs(40);
-        grid.checkNeighbors();
+        bombNmbr = 40;
+        first = true;
+        //grid.placeBombs(40);
+        //grid.checkNeighbors();
         images = new ImageHandler();
     }
 
@@ -49,19 +53,23 @@ public class GUIJavaFX extends Application {
             currentX = 8;
             currentY = 8;
             grid = new Grid(currentX, currentY);
-            grid.placeBombs(10);
+            //grid.placeBombs(10);
+            bombNmbr = 10;
         } else if (x == 2) {
             currentX = 16;
             currentY = 16;
             grid = new Grid(currentX, currentY);
-            grid.placeBombs(40);
+            //grid.placeBombs(40);
+            bombNmbr = 40;
         } else if (x == 3) {
             currentX = 24;
             currentY = 24;
             grid = new Grid(currentX, currentY);
-            grid.placeBombs(99);
+            //grid.placeBombs(99);
+            bombNmbr = 99;
         }
-        grid.checkNeighbors();
+        //grid.checkNeighbors();
+        first = true;
     }
 
     @Override
@@ -79,11 +87,11 @@ public class GUIJavaFX extends Application {
             victory.setText("");
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
-                    //buttons[x][y].setText("");
                     buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
                     buttons[x][y].setId("");
                 }
             }
+            first = true;
         });
 
         buttons = new Button[currentX][currentY];
@@ -213,6 +221,13 @@ public class GUIJavaFX extends Application {
     }
 
     public void setButtonActionLeft(int x, int y) {
+        System.out.println(first);
+        if(first == true) {
+            grid.placeBombs(bombNmbr, x, y);
+            grid.checkNeighbors();
+            first = false;
+        }
+        System.out.println(first);
         if (buttons[x][y].getId().equals("flagged")) {
             return;
         } else if (grid.getNeighbors(x, y) == 10) {
@@ -226,6 +241,7 @@ public class GUIJavaFX extends Application {
             buttons[x][y].setId("open");
             checkIfWon();
         }
+        
     }
 
     public void setButtonActionRight(int x, int y) {

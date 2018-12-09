@@ -39,6 +39,28 @@ public class Grid {
             bombs++;
         }
     }
+    
+    public void placeBombs(int nmbr,int a,int b) {
+        bombs = 0;
+        ArrayList<Integer> bombsNotPut = new ArrayList<Integer>();
+        for (int x = 0; x < places.length; x++) {
+            for (int y = 0; y < places[0].length; y++) {
+                bombsNotPut.add(x * 100 + y);
+            }
+        }
+        for(int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                bombsNotPut.remove(Integer.valueOf((a+x) * 100 + (b+y)));
+                System.out.println((a+x)+","+(b+y));
+            }
+        }
+        for (int m = 1; m <= nmbr; m++) {
+            int random = (int) (Math.random() * bombsNotPut.size());
+            places[bombsNotPut.get(random) / 100][bombsNotPut.get(random) % 100] = mine;
+            bombsNotPut.remove(random);
+            bombs++;
+        }
+    }
 
     public void checkNeighbors() {
         for (int x = 0; x < places.length; x++) {
@@ -93,8 +115,8 @@ public class Grid {
                 places[x][y] = 0;
             }
         }
-        placeBombs(bombs);
-        checkNeighbors();
+        //placeBombs(bombs);
+        //checkNeighbors();
     }
 
     public ArrayList<Integer> adjacentZeros(int x, int y) {
