@@ -79,10 +79,10 @@ public class GUIJavaFX extends Application {
     public void start(Stage window) {
 
         window.setTitle("MineSweeper");
-        window.setMinHeight(740);
-        window.setMinWidth(800);
+        window.setMinHeight(715);
+        //window.setMinWidth(800);
 
-        BorderPane frame = new BorderPane(); 
+        BorderPane frame = new BorderPane();
 
         Button reset = new Button("Reset"); // RESET button
         reset.setOnAction((event) -> {
@@ -104,7 +104,7 @@ public class GUIJavaFX extends Application {
         buttons = new Button[currentX][currentY];
         GridPane buttonField = new GridPane();
         makeButtonfield(buttonField); //Buttons visual made
-        
+
         BorderPane middle = new BorderPane();
 
         FlowPane top = new FlowPane();
@@ -134,14 +134,14 @@ public class GUIJavaFX extends Application {
             init(3);
             start(window);
         });
-        
+
         top.getChildren().add(timer);
         top.getChildren().add(reset);
         top.getChildren().add(unmarkedBombs);
-        
+
         middle.setTop(top);
         middle.setCenter(buttonField);
-        
+
         right.getChildren().add(easy);
         right.getChildren().add(medium);
         right.getChildren().add(hard);
