@@ -6,10 +6,10 @@
 package guifx;
 
 import com.mycompany.miinaharava.Grid;
+import com.mycompany.miinaharava.TimeCounter;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,6 +34,7 @@ public class GUIJavaFX extends Application {
     private Label victory;
     private Integer bombCount;
     private Label unmarkedBombs;
+    private TimeCounter timer;
     private Integer currentX;
     private Integer currentY;
     private Integer bombNmbr;
@@ -70,6 +71,8 @@ public class GUIJavaFX extends Application {
         first = true;
         bombCount = bombNmbr;
         unmarkedBombs.setText("Bombs: " + bombCount);
+        timer.stop();
+        timer.reset();
     }
 
     @Override
@@ -79,10 +82,12 @@ public class GUIJavaFX extends Application {
         window.setMinHeight(740);
         window.setMinWidth(800);
 
-        BorderPane frame = new BorderPane();
+        BorderPane frame = new BorderPane(); 
 
         Button reset = new Button("Reset"); // RESET button
         reset.setOnAction((event) -> {
+            timer.stop();
+            timer.reset();
             grid.resetGrid();
             victory.setText("");
             for (int x = 0; x < buttons.length; x++) {
@@ -93,16 +98,19 @@ public class GUIJavaFX extends Application {
             }
             first = true;
             bombCount = bombNmbr;
-        unmarkedBombs.setText("Bombs: " + bombCount);
+            unmarkedBombs.setText("Bombs: " + bombCount);
         });
 
         buttons = new Button[currentX][currentY];
         GridPane buttonField = new GridPane();
         makeButtonfield(buttonField); //Buttons visual made
+        
+        BorderPane middle = new BorderPane();
 
         FlowPane top = new FlowPane();
-        top.setHgap(30);
+        top.setHgap(40);
         VBox right = new VBox();
+        timer = new TimeCounter();
         victory = new Label("");
         unmarkedBombs = new Label("Bombs: " + bombCount);
 
@@ -126,17 +134,22 @@ public class GUIJavaFX extends Application {
             init(3);
             start(window);
         });
-
+        
+        top.getChildren().add(timer);
         top.getChildren().add(reset);
-        top.getChildren().add(victory);
         top.getChildren().add(unmarkedBombs);
+        
+        middle.setTop(top);
+        middle.setCenter(buttonField);
+        
         right.getChildren().add(easy);
         right.getChildren().add(medium);
         right.getChildren().add(hard);
+        right.getChildren().add(victory);
 
-        frame.setTop(top);
+        //frame.setTop(top);
         frame.setRight(right);
-        frame.setCenter(buttonField);
+        frame.setCenter(middle);
         frame.setLeft(new Label("            "));
 
         Scene view = new Scene(frame);
@@ -149,6 +162,7 @@ public class GUIJavaFX extends Application {
     }
 
     public void showAllNumbers() {
+        timer.stop();
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 if (grid.getNeighbors(x, y) == 10) {
@@ -226,11 +240,11 @@ public class GUIJavaFX extends Application {
     }
 
     public void setButtonActionLeft(int x, int y) {
-        System.out.println(first);
-        if(first == true) {
+        if (first == true) {
             grid.placeBombs(bombNmbr, x, y);
             grid.checkNeighbors();
             first = false;
+            timer.start();
         }
         System.out.println(first);
         if (buttons[x][y].getId().equals("flagged")) {
@@ -246,14 +260,14 @@ public class GUIJavaFX extends Application {
             buttons[x][y].setId("open");
             checkIfWon();
         }
-        
+
     }
 
     public void setButtonActionRight(int x, int y) {
         if (buttons[x][y].getId().equals("flagged")) {
             buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
             buttons[x][y].setId("");
-            bombCount++;   
+            bombCount++;
             unmarkedBombs.setText("Bombs: " + bombCount);
         } else if (buttons[x][y].getId().equals("open")) {
             return;
