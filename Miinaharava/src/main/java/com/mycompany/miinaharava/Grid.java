@@ -24,7 +24,7 @@ public class Grid {
         zeros = new ArrayList<Integer>();
     }
 
-    public void placeBombs(int nmbr,int a,int b) {
+    public void placeBombs(int nmbr, int a, int b) {
         bombs = 0;
         ArrayList<Integer> bombsNotPut = new ArrayList<Integer>();
         for (int x = 0; x < places.length; x++) {
@@ -32,9 +32,9 @@ public class Grid {
                 bombsNotPut.add(x * 100 + y);
             }
         }
-        for(int x = -1; x < 2; x++) {
+        for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
-                bombsNotPut.remove(Integer.valueOf((a+x) * 100 + (b+y)));
+                bombsNotPut.remove(Integer.valueOf((a + x) * 100 + (b + y)));
             }
         }
         for (int m = 1; m <= nmbr; m++) {
@@ -50,29 +50,14 @@ public class Grid {
             for (int y = 0; y < places[0].length; y++) {
                 if (places[x][y] != mine) {
                     int neighborCount = 0;
-                    if (x > 0 && y > 0 && places[x - 1][y - 1] == mine) { //up left
-                        neighborCount++;
-                    }
-                    if (y > 0 && places[x][y - 1] == mine) { // up
-                        neighborCount++;
-                    }
-                    if (y > 0 && x < places.length - 1 && places[x + 1][y - 1] == mine) { // up right
-                        neighborCount++;
-                    }
-                    if (y < places.length - 1 && places[x][y + 1] == mine) { // down
-                        neighborCount++;
-                    }
-                    if (x > 0 && places[x - 1][y] == mine) { // left
-                        neighborCount++;
-                    }
-                    if (x < places.length - 1 && places[x + 1][y] == mine) { // right
-                        neighborCount++;
-                    }
-                    if (y < places[0].length - 1 && x > 0 && places[x - 1][y + 1] == mine) { // down left
-                        neighborCount++;
-                    }
-                    if (y < places[0].length - 1 && x < places.length - 1 && places[x + 1][y + 1] == mine) { // down right
-                        neighborCount++;
+                    for (int a = -1; a < 2; a++) {
+                        for (int b = -1; b < 2; b++) {
+                            if (x + a >= 0 && x + a <= places.length - 1 && y + b >= 0 && y + b <= places[0].length - 1 && (a != 0 || b != 0)) {
+                                if (places[x + a][y + b] == mine) {
+                                    neighborCount++;
+                                }
+                            }
+                        }
                     }
                     places[x][y] = neighborCount;
                 }
@@ -111,56 +96,19 @@ public class Grid {
         if (places[x][y] != 0) {
             return;
         } else {
-            if (x > 0 && y > 0) { //up left
-                if (!zeros.contains((x - 1) * 100 + (y - 1))) {
-                    zeros.add((x - 1) * 100 + (y - 1));
-                    recursion(x - 1, y - 1);
-                }
-            }
-            if (y > 0) { // up
-                if (!zeros.contains((x) * 100 + (y - 1))) {
-                    zeros.add((x) * 100 + (y - 1));
-                    recursion(x, y - 1);
-                }
-            }
-            if (y > 0 && x < places.length - 1) { // up right
-                if (!zeros.contains((x + 1) * 100 + (y - 1))) {
-                    zeros.add((x + 1) * 100 + (y - 1));
-                    recursion(x + 1, y - 1);
-                }
-            }
-            if (y < places.length - 1) { // down
-                if (!zeros.contains((x) * 100 + (y + 1))) {
-                    zeros.add((x) * 100 + (y + 1));
-                    recursion(x, y + 1);
-                }
-            }
-            if (x > 0) { // left
-                if (!zeros.contains((x - 1) * 100 + (y))) {
-                    zeros.add((x - 1) * 100 + (y));
-                    recursion(x - 1, y);
-                }
-            }
-            if (x < places.length - 1) { // right
-                if (!zeros.contains((x + 1) * 100 + (y))) {
-                    zeros.add((x + 1) * 100 + (y));
-                    recursion(x + 1, y);
-                }
-            }
-            if (y < places[0].length - 1 && x > 0) { // down left
-                if (!zeros.contains((x - 1) * 100 + (y + 1))) {
-                    zeros.add((x - 1) * 100 + (y + 1));
-                    recursion(x - 1, y + 1);
-                }
-            }
-            if (y < places[0].length - 1 && x < places.length - 1) { // down right
-                if (!zeros.contains((x + 1) * 100 + (y + 1))) {
-                    zeros.add((x + 1) * 100 + (y + 1));
-                    recursion(x + 1, y + 1);
+            for (int a = -1; a < 2; a++) {
+                for (int b = -1; b < 2; b++) {
+                    if (x + a >= 0 && x + a <= places.length - 1 && y + b >= 0 && y + b <= places[0].length - 1) {
+                        if (!zeros.contains((x + a) * 100 + (y + b))) {
+                            zeros.add((x + a) * 100 + (y + b));
+                            recursion(x + a, y + b);
+                        }
+                    }
                 }
             }
         }
     }
+
     public ArrayList<Integer> getZeros() {
         return zeros;
     }
