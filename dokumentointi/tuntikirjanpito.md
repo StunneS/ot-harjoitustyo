@@ -15,4 +15,5 @@
 | 3.12 | 4 | Ohjelman laajennus ja ulkonäön siistintä |
 | 4.12 | 6 | Koodausta ja siistintää |
 | 10.12 | 2 | Pelin aloituksen parannus ja pommilaskurin lisääminen, sekä testien lisäys |
-|yht | 36 ||
+| 11.12 | 4 | Ajastimen lisäys ja parhaiden tulosten listat muodostettu. Ja lisää testejä |
+|yht | 40 ||
