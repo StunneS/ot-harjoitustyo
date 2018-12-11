@@ -11,6 +11,8 @@ Pelissä on kolme valmiiksi määriteltyä kokoa, easy(8x8) jossa 10 pommia, med
 
 [Viikon 5 release](https://github.com/StunneS/ot-harjoitustyo/releases/tag/viikko5)
 
+[Viikon 6 release](https://github.com/StunneS/ot-harjoitustyo/releases/tag/viikko6)
+
 ### Dokumentaatio
 [Työn suunnitelma ja määrittely](https://github.com/StunneS/ot-harjoitustyo/blob/master/dokumentointi/alustavaMaarittely.md)
 
