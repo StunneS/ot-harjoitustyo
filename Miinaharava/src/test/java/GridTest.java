@@ -44,13 +44,13 @@ public class GridTest {
 
     @Test
     public void rightAmmountOfBombs() {
-        test.placeBombs(30,1,1);
+        test.placeBombs(30, 1, 1);
         assertEquals(30, test.getBombs());
     }
 
     @Test
     public void notAllEmptySpotsInGrid() {
-        test.placeBombs(30,1,1);
+        test.placeBombs(30, 1, 1);
         test.checkNeighbors();
         int[][] help = test.getPlaces();
         boolean onlyZeros = true;
@@ -66,7 +66,7 @@ public class GridTest {
 
     @Test
     public void resetWorks() {
-        test.placeBombs(30,1,1);
+        test.placeBombs(30, 1, 1);
         test.checkNeighbors();
         int[][] first = this.test.getPlaces();
         int[][] second = new int[20][20];
@@ -82,7 +82,7 @@ public class GridTest {
     @Test
     public void neighborCountIsRight() {
         Grid test1 = new Grid(4, 8);
-        test1.placeBombs(28,0,0);
+        test1.placeBombs(28, 0, 0);
         test1.checkNeighbors();
         int[][] help = test1.getPlaces();
         boolean fourWithRightNeighbors = false;
@@ -105,19 +105,22 @@ public class GridTest {
         test.checkNeighbors();
         assertEquals(400, test.adjacentZeros(0, 0).size());
     }
+
     @Test
     public void recursionWorks() {
         Grid test1 = new Grid(4, 8);
-        test1.placeBombs(23,2,2);
+        test1.placeBombs(23, 2, 2);
         test1.checkNeighbors();
         test1.recursion(2, 2);
         assertEquals(9, test1.getZeros().size());
     }
+
     @Test
     public void zerosNumberIsCorrect() {
         test.checkNeighbors();
         assertEquals(0, test.getZeros().size());
     }
+
     @Test
     public void testNeighborCount() {
         test.placeBombs(30, 0, 0);

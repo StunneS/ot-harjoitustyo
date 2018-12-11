@@ -18,11 +18,12 @@ import static javafx.util.Duration.seconds;
  *
  * @author Sade-Tuuli
  */
-public class TimeCounter extends Pane{
+public class TimeCounter extends Pane {
+
     private Label gameTime = new Label("00");
     private int secondsPassed = 0;
     private Timeline timer;
-    
+
     public TimeCounter() {
         getChildren().add(gameTime);
         timer = new Timeline();
@@ -31,22 +32,27 @@ public class TimeCounter extends Pane{
             secondsPassed++;
             changeCurrentTime();
         }));
-        
+
     }
+
     public void start() {
-        timer.play(); 
+        timer.play();
     }
+
     private void changeCurrentTime() {
         DecimalFormat df = new DecimalFormat("00");
         gameTime.setText(df.format(secondsPassed));
     }
+
     public void reset() {
         secondsPassed = 0;
         gameTime.setText("00");
     }
-    public  String getGameTime() {
+
+    public String getGameTime() {
         return gameTime.getText();
     }
+
     public int getSeconds() {
         return secondsPassed;
     }

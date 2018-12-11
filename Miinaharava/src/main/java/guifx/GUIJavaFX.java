@@ -303,13 +303,13 @@ public class GUIJavaFX extends Application {
         Button close = new Button("Submit");
         close.setOnAction((event) -> {
             Score newest = new Score(nameField.getText(), timer.getSeconds());
-            if(bombNmbr == 10) {
+            if (bombNmbr == 10) {
                 scoreEasy.addScore(newest);
             }
-            if(bombNmbr == 40) {
+            if (bombNmbr == 40) {
                 scoreMedium.addScore(newest);
             }
-            if(bombNmbr == 99) {
+            if (bombNmbr == 99) {
                 scoreMedium.addScore(newest);
             }
             dialog.close();
@@ -319,16 +319,17 @@ public class GUIJavaFX extends Application {
         dialog.setScene(dialogScene);
         dialog.show();
     }
-    public void checkIfGoodEnough(){
+
+    public void checkIfGoodEnough() {
         int lowest = 0;
-        if(bombNmbr == 10) {
-                lowest = scoreEasy.getLowestScore();
-            } else if(bombNmbr == 40) {
-                lowest = scoreMedium.getLowestScore();
-            } else if(bombNmbr == 99) {
-                lowest = scoreHard.getLowestScore();
-            }
-        if(timer.getSeconds() <= lowest) {
+        if (bombNmbr == 10) {
+            lowest = scoreEasy.getLowestScore();
+        } else if (bombNmbr == 40) {
+            lowest = scoreMedium.getLowestScore();
+        } else if (bombNmbr == 99) {
+            lowest = scoreHard.getLowestScore();
+        }
+        if (timer.getSeconds() <= lowest) {
             highEnoughScore();
         }
     }

@@ -12,20 +12,23 @@ import java.util.Comparator;
  * @author Sade-Tuuli
  */
 public class Score {
+
     private String name;
     private int seconds;
-    
+
     public Score(String name, int seconds) {
-        if(name.equals("")) {
-        this.name = "Anonym";
+        if (name.equals("")) {
+            this.name = "Anonym";
         } else {
             this.name = name;
         }
         this.seconds = seconds;
     }
+
     public int getSeconds() {
         return seconds;
     }
+
     public String getName() {
         return name;
     }
