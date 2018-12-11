@@ -25,6 +25,9 @@ public class ScoreBoard {
     }
 
     public int getLowestScore() {
+        if (top.size() == 0) {
+            return 9999;
+        }
         int returnable = 0;
         for (int i = 0; i < top.size(); i++) {
             if (returnable < top.get(i).getSeconds()) {

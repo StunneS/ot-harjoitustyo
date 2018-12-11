@@ -214,6 +214,9 @@ public class GUIJavaFX extends Application {
         }
         if (won == true) {
             showAllNumbers();
+            if (!victory.getText().equals("    Victory!")) {
+                checkIfGoodEnough();
+            }
             victory.setText("    Victory!");
         }
     }
@@ -274,7 +277,6 @@ public class GUIJavaFX extends Application {
     }
 
     public void setButtonActionRight(int x, int y) {
-        highEnoughScore();
         if (buttons[x][y].getId().equals("flagged")) {
             buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
             buttons[x][y].setId("");
