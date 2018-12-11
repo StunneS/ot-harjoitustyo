@@ -6,13 +6,15 @@
 package guifx;
 
 import com.mycompany.miinaharava.Grid;
-import com.mycompany.miinaharava.TimeCounter;
+import com.mycompany.miinaharava.Score;
+import com.mycompany.miinaharava.ScoreBoard;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +23,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javafx.scene.text.Text;
 
 /**
  *
@@ -39,6 +43,9 @@ public class GUIJavaFX extends Application {
     private Integer currentY;
     private Integer bombNmbr;
     private boolean first;
+    private ScoreBoard scoreEasy;
+    private ScoreBoard scoreMedium;
+    private ScoreBoard scoreHard;
 
     @Override
     public void init() throws Exception {
@@ -49,6 +56,10 @@ public class GUIJavaFX extends Application {
         first = true;
         images = new ImageHandler();
         bombCount = bombNmbr;
+        scoreEasy = new ScoreBoard();
+        scoreMedium = new ScoreBoard();
+        scoreHard = new ScoreBoard();
+
     }
 
     public void init(int x) {
@@ -246,7 +257,6 @@ public class GUIJavaFX extends Application {
             first = false;
             timer.start();
         }
-        System.out.println(first);
         if (buttons[x][y].getId().equals("flagged")) {
             return;
         } else if (grid.getNeighbors(x, y) == 10) {
@@ -264,6 +274,7 @@ public class GUIJavaFX extends Application {
     }
 
     public void setButtonActionRight(int x, int y) {
+        highEnoughScore();
         if (buttons[x][y].getId().equals("flagged")) {
             buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
             buttons[x][y].setId("");
@@ -276,6 +287,49 @@ public class GUIJavaFX extends Application {
             buttons[x][y].setId("flagged");
             bombCount--;
             unmarkedBombs.setText("Bombs: " + bombCount);
+        }
+    }
+
+    public void highEnoughScore() {
+        final Stage dialog = new Stage();
+        dialog.setTitle("Victory!");
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text("Congratulations! You got onto the score board!"));
+        dialogVbox.getChildren().add(new Text("Your name: "));
+        TextField nameField = new TextField();
+        nameField.setMaxWidth(100);
+        dialogVbox.getChildren().add(nameField);
+        dialogVbox.getChildren().add(new Text("Your time: " + timer.getGameTime() + " seconds"));
+        Button close = new Button("Submit");
+        close.setOnAction((event) -> {
+            Score newest = new Score(nameField.getText(), timer.getSeconds());
+            if(bombNmbr == 10) {
+                scoreEasy.addScore(newest);
+            }
+            if(bombNmbr == 40) {
+                scoreMedium.addScore(newest);
+            }
+            if(bombNmbr == 99) {
+                scoreMedium.addScore(newest);
+            }
+            dialog.close();
+        });
+        dialogVbox.getChildren().add(close);
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+    }
+    public void checkIfGoodEnough(){
+        int lowest = 0;
+        if(bombNmbr == 10) {
+                lowest = scoreEasy.getLowestScore();
+            } else if(bombNmbr == 40) {
+                lowest = scoreMedium.getLowestScore();
+            } else if(bombNmbr == 99) {
+                lowest = scoreHard.getLowestScore();
+            }
+        if(timer.getSeconds() <= lowest) {
+            highEnoughScore();
         }
     }
 }

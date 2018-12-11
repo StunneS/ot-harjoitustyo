@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.miinaharava;
+package guifx;
 
 import java.text.DecimalFormat;
 import javafx.animation.Animation;
@@ -19,22 +19,12 @@ import static javafx.util.Duration.seconds;
  * @author Sade-Tuuli
  */
 public class TimeCounter extends Pane{
-    private static Label gameTime = new Label("00");
-    //Timer timer;
-    //TimerTask task;
-    private static int secondsPassed = 0;
-    private static Timeline timer;
+    private Label gameTime = new Label("00");
+    private int secondsPassed = 0;
+    private Timeline timer;
     
     public TimeCounter() {
         getChildren().add(gameTime);
-        //timer = new Timer();
-        /*task = new TimerTask() {
-            @Override
-            public void run() {
-                secondsPassed++;
-                
-            }
-        }; */
         timer = new Timeline();
         timer.setCycleCount(Animation.INDEFINITE);
         timer.getKeyFrames().add(new KeyFrame(Duration.seconds(1), e -> {
@@ -46,23 +36,19 @@ public class TimeCounter extends Pane{
     public void start() {
         timer.play(); 
     }
-    private static void changeCurrentTime() {
+    private void changeCurrentTime() {
         DecimalFormat df = new DecimalFormat("00");
         gameTime.setText(df.format(secondsPassed));
     }
-    /*public int returnSeconds() {
-        return secondsPassed;
-    } 
-    public void start() {
-        timer.scheduleAtFixedRate(task, 1000, 1000);
-        
-    } */
     public void reset() {
         secondsPassed = 0;
         gameTime.setText("00");
     }
     public  String getGameTime() {
         return gameTime.getText();
+    }
+    public int getSeconds() {
+        return secondsPassed;
     }
 
     public void stop() {
