@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 
-import com.mycompany.miinaharava.Score;
+import database.Database;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -16,9 +19,9 @@ import org.junit.Test;
  *
  * @author Sade-Tuuli
  */
-public class ScoreTest {
-    Score test;
-    public ScoreTest() {
+public class DatabaseTest {
+    Database test;
+    public DatabaseTest() {
     }
     
     @BeforeClass
@@ -31,7 +34,7 @@ public class ScoreTest {
     
     @Before
     public void setUp() {
-        test = new Score("Test", 10,1);
+        this.test = new Database();
     }
     
     @After
@@ -44,15 +47,18 @@ public class ScoreTest {
     // @Test
     // public void hello() {}
     @Test
-    public void getsTheRightName() {
-        assertEquals("Test", test.getName());
-    }
-    @Test
-    public void getsTheRightSeconds() {
-        assertEquals(10, test.getSeconds());
-    }
-    @Test
-    public void getsTheRightId() {
-        assertEquals(1, test.getId());
+    public void testConnection() throws Exception{
+        Connection conn = test.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT 1");
+
+        ResultSet resultSet = stmt.executeQuery();
+        int i = 0;
+        if(resultSet.next()) {
+            i = 1;
+        }
+        resultSet.close();
+        stmt.close();
+        conn.close();
+        assertEquals(1, i);
     }
 }

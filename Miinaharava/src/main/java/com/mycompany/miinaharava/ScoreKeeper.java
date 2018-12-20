@@ -98,19 +98,6 @@ public class ScoreKeeper {
         }
     }
 
-    /*public ScoreDao getEasy() {
-        return easy;
-    }
-
-    public ScoreDao getMedium() {
-        return medium;
-    }
-
-    public ScoreDao getHard() {
-        return hard;
-    }
-
-*/
     public boolean getsToList(int candidate) {
         boolean getsToList = false;
 
