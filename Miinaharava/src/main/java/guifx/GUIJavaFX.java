@@ -7,8 +7,13 @@ package guifx;
 
 import com.mycompany.miinaharava.Grid;
 import com.mycompany.miinaharava.Score;
-import com.mycompany.miinaharava.ScoreBoard;
+import com.mycompany.miinaharava.ScoreKeeper;
+import database.Database;
+import database.ScoreDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -23,7 +28,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import javafx.scene.text.Text;
 
 /**
@@ -43,12 +47,15 @@ public class GUIJavaFX extends Application {
     private Integer currentY;
     private Integer bombNmbr;
     private boolean first;
-    private ScoreBoard scoreEasy;
-    private ScoreBoard scoreMedium;
-    private ScoreBoard scoreHard;
+    private Database database;
+    private ScoreBoard scoreBoard;
+    private ScoreKeeper scoreKeeper;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
+        this.database = new Database();
+        this.scoreKeeper = new ScoreKeeper(database);
+        this.scoreBoard = scoreKeeper.getScoreBoard();
         currentX = 16;
         currentY = 16;
         grid = new Grid(currentX, currentY);
@@ -56,9 +63,6 @@ public class GUIJavaFX extends Application {
         first = true;
         images = new ImageHandler();
         bombCount = bombNmbr;
-        scoreEasy = new ScoreBoard();
-        scoreMedium = new ScoreBoard();
-        scoreHard = new ScoreBoard();
 
     }
 
@@ -68,16 +72,27 @@ public class GUIJavaFX extends Application {
             currentY = 8;
             grid = new Grid(currentX, currentY);
             bombNmbr = 10;
+
+            scoreKeeper.switchScoreBoard("Easy");
+            scoreBoard = scoreKeeper.getScoreBoard();
         } else if (x == 2) {
             currentX = 16;
             currentY = 16;
             grid = new Grid(currentX, currentY);
             bombNmbr = 40;
+
+            scoreKeeper.switchScoreBoard("Medium");
+            scoreBoard = scoreKeeper.getScoreBoard();
+
         } else if (x == 3) {
             currentX = 24;
             currentY = 24;
             grid = new Grid(currentX, currentY);
             bombNmbr = 99;
+
+            scoreKeeper.switchScoreBoard("Hard");
+            scoreBoard = scoreKeeper.getScoreBoard();
+
         }
         first = true;
         bombCount = bombNmbr;
@@ -110,6 +125,9 @@ public class GUIJavaFX extends Application {
             first = true;
             bombCount = bombNmbr;
             unmarkedBombs.setText("Bombs: " + bombCount);
+            this.scoreKeeper.updateScoreBoard();
+            this.scoreBoard = scoreKeeper.getScoreBoard();
+            start(window);
         });
 
         buttons = new Button[currentX][currentY];
@@ -157,8 +175,8 @@ public class GUIJavaFX extends Application {
         right.getChildren().add(medium);
         right.getChildren().add(hard);
         right.getChildren().add(victory);
+        right.getChildren().add(scoreBoard);
 
-        //frame.setTop(top);
         frame.setRight(right);
         frame.setCenter(middle);
         frame.setLeft(new Label("            "));
@@ -207,7 +225,7 @@ public class GUIJavaFX extends Application {
         boolean won = true;
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
-                if ((buttons[x][y].getId().equals("") && grid.getNeighbors(x, y) != 10) || buttons[x][y].getId().equals("boom")) {
+                if ((buttons[x][y].getId().equals("") && grid.getNeighbors(x, y) != 10) || buttons[x][y].getId().equals("boom") || (buttons[x][y].getId().equals("flagged") && grid.getNeighbors(x, y) != 10)) {
                     won = false;
                 }
             }
@@ -267,11 +285,15 @@ public class GUIJavaFX extends Application {
             showAllNumbers();
         } else if (grid.getNeighbors(x, y) == 0) {
             openAdjacentZeros(x, y);
+
             checkIfWon();
+
         } else {
             buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
             buttons[x][y].setId("open");
+
             checkIfWon();
+
         }
 
     }
@@ -305,15 +327,9 @@ public class GUIJavaFX extends Application {
         Button close = new Button("Submit");
         close.setOnAction((event) -> {
             Score newest = new Score(nameField.getText(), timer.getSeconds());
-            if (bombNmbr == 10) {
-                scoreEasy.addScore(newest);
-            }
-            if (bombNmbr == 40) {
-                scoreMedium.addScore(newest);
-            }
-            if (bombNmbr == 99) {
-                scoreMedium.addScore(newest);
-            }
+            scoreKeeper.addNewScore(newest);
+            //scoreKeeper.updateScoreBoard();
+            //scoreBoard = scoreKeeper.getScoreBoard();
             dialog.close();
         });
         dialogVbox.getChildren().add(close);
@@ -323,15 +339,7 @@ public class GUIJavaFX extends Application {
     }
 
     public void checkIfGoodEnough() {
-        int lowest = 0;
-        if (bombNmbr == 10) {
-            lowest = scoreEasy.getLowestScore();
-        } else if (bombNmbr == 40) {
-            lowest = scoreMedium.getLowestScore();
-        } else if (bombNmbr == 99) {
-            lowest = scoreHard.getLowestScore();
-        }
-        if (timer.getSeconds() <= lowest) {
+        if (scoreKeeper.getsToList(timer.getSeconds())) {
             highEnoughScore();
         }
     }

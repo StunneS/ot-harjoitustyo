@@ -5,7 +5,7 @@
  */
 
 import com.mycompany.miinaharava.Score;
-import com.mycompany.miinaharava.ScoreBoard;
+import guifx.ScoreBoard;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;

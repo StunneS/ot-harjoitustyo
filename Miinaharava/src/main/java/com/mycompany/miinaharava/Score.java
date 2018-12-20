@@ -15,6 +15,7 @@ public class Score {
 
     private String name;
     private int seconds;
+    private int id;
 
     public Score(String name, int seconds) {
         if (name.equals("")) {
@@ -25,11 +26,25 @@ public class Score {
         this.seconds = seconds;
     }
 
+    public Score(String name, int seconds, int id) {
+        if (name.equals("")) {
+            this.name = "Anonym";
+        } else {
+            this.name = name;
+        }
+        this.seconds = seconds;
+        this.id = id;
+    }
+
     public int getSeconds() {
         return seconds;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 }
