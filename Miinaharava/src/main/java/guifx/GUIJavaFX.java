@@ -53,7 +53,8 @@ public class GUIJavaFX extends Application {
 
     @Override
     public void init() {
-        this.database = new Database();
+        this.database = new Database("score.db");
+        this.database.initDatabase();
         this.scoreKeeper = new ScoreKeeper(database);
         this.scoreBoard = scoreKeeper.getScoreBoard();
         currentX = 16;

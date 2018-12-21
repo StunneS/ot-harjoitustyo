@@ -34,7 +34,8 @@ public class DatabaseTest {
     
     @Before
     public void setUp() {
-        this.test = new Database();
+        this.test = new Database("Test.db");
+        test.initDatabase();
     }
     
     @After

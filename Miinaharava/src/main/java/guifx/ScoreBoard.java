@@ -26,7 +26,7 @@ public class ScoreBoard extends VBox {
         top = new ArrayList();
         this.level = dao.getLevel();
         this.top = dao.findBest();
-        getChildren().add(new Label("High Scores for " + level + " difficulty:       "));
+        getChildren().add(new Label("Top scores for " + level + " difficulty:       "));
         for (int i = 0; i < top.size(); i++) {
             getChildren().add(new Label(i + 1 + ". " + top.get(i).getName() + ", " + top.get(i).getSeconds() + " seconds"));
         }

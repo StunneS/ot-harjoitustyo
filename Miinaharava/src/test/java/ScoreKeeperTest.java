@@ -19,7 +19,7 @@ import org.junit.Test;
  * @author Sade-Tuuli
  */
 public class ScoreKeeperTest {
-    //ScoreKeeper test = new ScoreKeeper(new Database());
+    ScoreKeeper test;
     
     public ScoreKeeperTest() {
     }
@@ -34,6 +34,8 @@ public class ScoreKeeperTest {
     
     @Before
     public void setUp() {
+        Database db = new Database("Test.db");
+        this.test = new ScoreKeeper(db);
     }
     
     @After
@@ -45,7 +47,9 @@ public class ScoreKeeperTest {
     //
     // @Test
     // public void hello() {}
-    /*@Test
+    /*
+    @Test
+    
     public void gotScoreboardNotEmpty() {
         boolean notNull = false;
         ScoreBoard help = test.getScoreBoard();
@@ -63,10 +67,12 @@ public class ScoreKeeperTest {
         }
         assertEquals(true, notSameLevel);
     }
+    
     @Test
     public void putingToListWhenOnTheListLessThanTen() {
         boolean getsToList = test.getsToList(0);
         
         assertEquals(true, getsToList);
-    } */
+    }
+*/
 }
