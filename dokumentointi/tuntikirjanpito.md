@@ -16,4 +16,7 @@
 | 4.12 | 6 | Koodausta ja siistintää |
 | 10.12 | 2 | Pelin aloituksen parannus ja pommilaskurin lisääminen, sekä testien lisäys |
 | 11.12 | 4 | Ajastimen lisäys ja parhaiden tulosten listat muodostettu. Ja lisää testejä |
-|yht | 40 ||
+| 19.12 | 3 | Tietokannan muodostamisen aloitus |
+| 20.12 | 3 | Tietokannan toiminnan luonti |
+| 21.12 | 4 | Testien lisäys ja JavaDoc -kuvausten luonti |
+|yht | 50 ||
