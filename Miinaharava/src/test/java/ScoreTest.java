@@ -17,23 +17,25 @@ import org.junit.Test;
  * @author Sade-Tuuli
  */
 public class ScoreTest {
+
     Score test;
+
     public ScoreTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-        test = new Score("Test", 10,1);
+        test = new Score("Test", 10, 1);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,12 +49,25 @@ public class ScoreTest {
     public void getsTheRightName() {
         assertEquals("Test", test.getName());
     }
+
     @Test
     public void getsTheRightSeconds() {
         assertEquals(10, test.getSeconds());
     }
+
     @Test
     public void getsTheRightId() {
         assertEquals(1, test.getId());
+    }
+
+    @Test
+    public void getEmptyName() {
+        test = new Score("", 10);
+        assertEquals("Anonym", test.getName());
+    }
+
+    public void getEmptyNameWithId() {
+        test = new Score("", 10, 1);
+        assertEquals("Anonym", test.getName());
     }
 }

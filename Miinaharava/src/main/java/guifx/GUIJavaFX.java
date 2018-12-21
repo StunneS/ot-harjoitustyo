@@ -31,8 +31,8 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 
 /**
- *
- * @author Sade-Tuuli
+ * Class handles the starting of the program and creating and handling of the
+ * grafic interface.
  */
 public class GUIJavaFX extends Application {
 
@@ -119,7 +119,7 @@ public class GUIJavaFX extends Application {
             victory.setText("");
             for (int x = 0; x < buttons.length; x++) {
                 for (int y = 0; y < buttons[0].length; y++) {
-                    buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
+                    buttons[x][y].setGraphic(new ImageView(images.getImage(9)));
                     buttons[x][y].setId("");
                 }
             }
@@ -191,21 +191,25 @@ public class GUIJavaFX extends Application {
         launch(GUIJavaFX.class);
     }
 
+    /**
+     * Method sets the buttons image to number corresponding to the number of
+     * its neighbors that have not yet been opened
+     */
     public void showAllNumbers() {
         timer.stop();
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 if (grid.getNeighbors(x, y) == 10) {
                     if (buttons[x][y].getId().equals("boom")) {
-                        buttons[x][y].setGraphic(new ImageView(images.setImage(12)));
+                        buttons[x][y].setGraphic(new ImageView(images.getImage(12)));
                     } else {
-                        buttons[x][y].setGraphic(new ImageView(images.setImage(11)));
+                        buttons[x][y].setGraphic(new ImageView(images.getImage(11)));
                     }
                 } else {
                     if (buttons[x][y].getId().equals("flagged")) {
-                        buttons[x][y].setGraphic(new ImageView(images.setImage(13)));
+                        buttons[x][y].setGraphic(new ImageView(images.getImage(13)));
                     } else {
-                        buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
+                        buttons[x][y].setGraphic(new ImageView(images.getImage(grid.getNeighbors(x, y))));
                     }
                 }
             }
@@ -216,12 +220,15 @@ public class GUIJavaFX extends Application {
         ArrayList<Integer> zeros = grid.adjacentZeros(x, y);
         for (int i = 0; i < zeros.size(); i++) {
             if (!buttons[zeros.get(i) / 100][zeros.get(i) % 100].getId().equals("flagged")) {
-                buttons[zeros.get(i) / 100][zeros.get(i) % 100].setGraphic(new ImageView(images.setImage(grid.getNeighbors(zeros.get(i) / 100, zeros.get(i) % 100))));
+                buttons[zeros.get(i) / 100][zeros.get(i) % 100].setGraphic(new ImageView(images.getImage(grid.getNeighbors(zeros.get(i) / 100, zeros.get(i) % 100))));
                 buttons[zeros.get(i) / 100][zeros.get(i) % 100].setId("open");
             }
         }
     }
 
+    /**
+     * Method checkes if the conditions for a victory are true in current game
+     */
     public void checkIfWon() {
         boolean won = true;
         for (int x = 0; x < buttons.length; x++) {
@@ -240,11 +247,14 @@ public class GUIJavaFX extends Application {
         }
     }
 
+    /**
+     * Method creates the buttons on the game grid with their own actions
+     */
     public void makeButtonfield(GridPane buttonField) {
         for (int x = 0; x < buttons.length; x++) {
             for (int y = 0; y < buttons[0].length; y++) {
                 buttons[x][y] = new Button();
-                buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
+                buttons[x][y].setGraphic(new ImageView(images.getImage(9)));
                 buttons[x][y].setId("");
 
                 buttons[x][y].setMinSize(24, 24);
@@ -272,6 +282,10 @@ public class GUIJavaFX extends Application {
         }
     }
 
+    /**
+     * Method determines the actions for the buttons on the game grid when
+     * clicked with left mouse button.
+     */
     public void setButtonActionLeft(int x, int y) {
         if (first == true) {
             grid.placeBombs(bombNmbr, x, y);
@@ -290,7 +304,7 @@ public class GUIJavaFX extends Application {
             checkIfWon();
 
         } else {
-            buttons[x][y].setGraphic(new ImageView(images.setImage(grid.getNeighbors(x, y))));
+            buttons[x][y].setGraphic(new ImageView(images.getImage(grid.getNeighbors(x, y))));
             buttons[x][y].setId("open");
 
             checkIfWon();
@@ -299,22 +313,30 @@ public class GUIJavaFX extends Application {
 
     }
 
+    /**
+     * Method determines the actions for the buttons on the game grid when
+     * clicked with right mouse button.
+     */
     public void setButtonActionRight(int x, int y) {
         if (buttons[x][y].getId().equals("flagged")) {
-            buttons[x][y].setGraphic(new ImageView(images.setImage(9)));
+            buttons[x][y].setGraphic(new ImageView(images.getImage(9)));
             buttons[x][y].setId("");
             bombCount++;
             unmarkedBombs.setText("Bombs: " + bombCount);
         } else if (buttons[x][y].getId().equals("open")) {
             return;
         } else {
-            buttons[x][y].setGraphic(new ImageView(images.setImage(10)));
+            buttons[x][y].setGraphic(new ImageView(images.getImage(10)));
             buttons[x][y].setId("flagged");
             bombCount--;
             unmarkedBombs.setText("Bombs: " + bombCount);
         }
     }
 
+    /**
+     * Method creates a popup victory screen which player can enter their name
+     * and the score will be saved to the database.
+     */
     public void highEnoughScore() {
         final Stage dialog = new Stage();
         dialog.setTitle("Victory!");
@@ -339,6 +361,10 @@ public class GUIJavaFX extends Application {
         dialog.show();
     }
 
+    /**
+     * Method checkes if the players time is good enough to end up in the score
+     * board.
+     */
     public void checkIfGoodEnough() {
         if (scoreKeeper.getsToList(timer.getSeconds())) {
             highEnoughScore();

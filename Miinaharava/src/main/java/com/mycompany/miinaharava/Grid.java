@@ -8,22 +8,32 @@ package com.mycompany.miinaharava;
 import java.util.ArrayList;
 
 /**
- *
- * @author Sade-Tuuli
+ * Class handles the creation of the game board and everything that requires
+ * handling of the numbers in the game
  */
 public class Grid {
 
-    int[][] places;
-    int mine = 10;
-    int bombs = 0;
-    int win = 0;
-    ArrayList<Integer> zeros;
+    private int[][] places;
+    private int mine = 10;
+    private int bombs = 0;
+    private int win = 0;
+    private ArrayList<Integer> zeros;
 
     public Grid(int x, int y) {
         places = new int[x][y];
         zeros = new ArrayList<Integer>();
     }
 
+    /**
+     * Method places number of bombs randomly to the grid, marking them with the
+     * number 10, but does not place them around the grid spot marked by the
+     * parametre coordinates
+     *
+     * @param nmbr number of bombs that are placed
+     * @param a x coordinate of the grid slot where no bomb is placed
+     * @param b y coordinate of of the grid slot where no bomb is placed
+     *
+     */
     public void placeBombs(int nmbr, int a, int b) {
         bombs = 0;
         ArrayList<Integer> bombsNotPut = new ArrayList<Integer>();
@@ -45,6 +55,10 @@ public class Grid {
         }
     }
 
+    /**
+     * Method fills into the grid the number of neighboring bombs to each slot
+     *
+     */
     public void checkNeighbors() {
         for (int x = 0; x < places.length; x++) {
             for (int y = 0; y < places[0].length; y++) {
@@ -77,6 +91,9 @@ public class Grid {
         return places[x][y];
     }
 
+    /**
+     * Method resets all of the values in the grid to zero
+     */
     public void resetGrid() {
         for (int x = 0; x < places.length; x++) {
             for (int y = 0; y < places[0].length; y++) {
@@ -85,6 +102,17 @@ public class Grid {
         }
     }
 
+    /**
+     * Method adds to a lists all the adjacent coordinates to the (x,y)
+     * coordinate that are zero or are next to zero using recursion
+     *
+     * @see com.mycompany.miinaharava.Grid#recursion(int, int)
+     *
+     * @param x x coordinate of the spot that opens
+     * @param y y coordinate of the spot that opens
+     *
+     * @return all of the spots that need to open
+     */
     public ArrayList<Integer> adjacentZeros(int x, int y) {
         zeros.clear();
         zeros.add((x) * 100 + (y));
@@ -92,6 +120,16 @@ public class Grid {
         return zeros;
     }
 
+    /**
+     * Method is called by method adjacentZeros(int, int) and it adds
+     * coordinates to the places -list if its number value is zero or it's
+     * located next to zero, Method calls itself until all required values are
+     * on the list.
+     *
+     * @param x x coordinate of the spot thats neighbors are added to the list
+     * @param y y coordinate of the spot thats neighbors are added to the list
+     *
+     */
     public void recursion(int x, int y) {
         if (places[x][y] != 0) {
             return;

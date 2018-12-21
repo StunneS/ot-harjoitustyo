@@ -15,8 +15,7 @@ import javafx.util.Duration;
 import static javafx.util.Duration.seconds;
 
 /**
- *
- * @author Sade-Tuuli
+ *Class creates and handles the game timer
  */
 public class TimeCounter extends Pane {
 
@@ -35,15 +34,24 @@ public class TimeCounter extends Pane {
 
     }
 
+    /**
+     * Method starts the timer
+     */
     public void start() {
         timer.play();
     }
 
+    /**
+     * Method changes the time shown
+     */
     private void changeCurrentTime() {
         DecimalFormat df = new DecimalFormat("00");
         gameTime.setText(df.format(secondsPassed));
     }
 
+    /**
+     * Method resets the timers value to 0
+     */
     public void reset() {
         secondsPassed = 0;
         gameTime.setText("00");
@@ -57,6 +65,9 @@ public class TimeCounter extends Pane {
         return secondsPassed;
     }
 
+    /**
+     * Method stops the timer
+     */
     public void stop() {
         timer.stop();
     }

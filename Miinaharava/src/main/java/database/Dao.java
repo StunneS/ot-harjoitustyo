@@ -9,8 +9,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- *
- * @author Sade-Tuuli
+ *Dao interface
  */
 
 public interface Dao<T, K> {

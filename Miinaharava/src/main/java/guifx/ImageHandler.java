@@ -8,8 +8,7 @@ package guifx;
 import javafx.scene.image.Image;
 
 /**
- *
- * @author Sade-Tuuli
+ * Class handles the required images for the program
  */
 public class ImageHandler {
 
@@ -33,16 +32,7 @@ public class ImageHandler {
         images[13] = new Image("/wrongmine.png");
     }
 
-    public Image setImage(int x) {
+    public Image getImage(int x) {
         return images[x];
-    }
-
-    public int getImageNumber(Image x) {
-        for (int i = 0; i < images.length; i++) {
-            if (x.toString().equals(images[0].toString())) {
-                return 1;
-            }
-        }
-        return -1;
     }
 }

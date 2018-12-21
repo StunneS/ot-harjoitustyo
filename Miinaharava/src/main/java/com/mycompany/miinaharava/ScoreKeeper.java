@@ -13,8 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Sade-Tuuli
+ * Class handles the changes in the score board and interaction calls with the
+ * database
  */
 public class ScoreKeeper {
 
@@ -40,50 +40,47 @@ public class ScoreKeeper {
         return this.board;
     }
 
+    /**
+     * Method updates the values of the scoreboard
+     */
     public void updateScoreBoard() {
-        if (board.getLevel().equals("Easy")) {
-            try {
+
+        try {
+            if (board.getLevel().equals("Easy")) {
                 this.board = new ScoreBoard(easy);
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (board.getLevel().equals("Medium")) {
-            try {
+            } else if (board.getLevel().equals("Medium")) {
                 this.board = new ScoreBoard(medium);
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
+            } else {
                 this.board = new ScoreBoard(hard);
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Method switches the scoreboard to the level thats name matches the name
+     * of the parameter.
+     *
+     * @param level The level as string which scoreboard needs to be shown.
+     */
     public void switchScoreBoard(String level) {
-        if (level.equals("Easy")) {
-            try {
+        try {
+            if (level.equals("Easy")) {
                 this.board = new ScoreBoard(easy);
                 this.inUse = easy;
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (level.equals("Medium")) {
-            try {
+
+            } else if (level.equals("Medium")) {
+
                 this.board = new ScoreBoard(medium);
                 this.inUse = medium;
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
+            } else {
+
                 this.board = new ScoreBoard(hard);
                 this.inUse = hard;
-            } catch (SQLException ex) {
-                Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -98,6 +95,13 @@ public class ScoreKeeper {
         }
     }
 
+    /**
+     * Method determines if the number in the parameter is good enough to get to
+     * the score board.
+     *
+     * @param candidate The score which is compared to the scores in the
+     * database
+     */
     public boolean getsToList(int candidate) {
         boolean getsToList = false;
 

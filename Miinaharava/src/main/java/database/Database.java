@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Sade-Tuuli
+ *Class handles the creation and connecting to a database
  */
 public class Database {
 
@@ -22,38 +21,39 @@ public class Database {
         this.database = db;
     }
 
+    /**
+     * Method creates connection to the database
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:sqlite:" + database);
-    } //src\\main\\resources\\" + 
+    }
 
+    /**
+     * Method is creates database with the given name, if it doesn't already exist
+     */
     public void initDatabase() {
         File file = new File(database);
         if (file.exists()) {
-            System.out.println("Error: Database already exists");
+            return;
         } else {
             List<String> statements = startingStatements();
             try (Connection conn = getConnection()) {
                 Statement stmt = conn.createStatement();
 
                 for (String statement : statements) {
-                    System.out.println("Running command: " + statement);
                     stmt.executeUpdate(statement);
                 }
 
             } catch (Throwable t) {
-                System.out.println("Error: " + t.getMessage());
             }
         }
     }
 
-    public void removeDatabase() {
-        File file = new File(database);
-        if (!file.exists()) {
-            System.out.println("Error: Database doesn't exist");
-        } else {
-            file.delete();
-        }
-    } 
+    /**
+     * Method adds to the list the required commands for creating the database tables
+     *
+     * @return list of the strings to create to the tables in the database  
+     */
     private List<String> startingStatements() {
         ArrayList<String> starters = new ArrayList<>();
 

@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Sade-Tuuli
+ * Class handles the interactions between one database table and the program
  */
 public class ScoreDao implements Dao<Score, Integer> {
 
@@ -27,6 +26,13 @@ public class ScoreDao implements Dao<Score, Integer> {
         this.level = level;
     }
 
+    /**
+     * Method finds a score from the levels database table where the id is the
+     * parameter. If there is no such value in the database, method returns
+     * null.
+     *
+     * @param key the id for the searched Score
+     */
     @Override
     public Score findOne(Integer key) throws SQLException {
 
@@ -53,6 +59,11 @@ public class ScoreDao implements Dao<Score, Integer> {
         return score;
     }
 
+    /**
+     * Method finds all values in the level spesific database table
+     *
+     * @return List of all the vaues in the database table
+     */
     @Override
     public List<Score> findAll() throws SQLException {
 
@@ -75,6 +86,12 @@ public class ScoreDao implements Dao<Score, Integer> {
         return scores;
     }
 
+    /**
+     * Method deletes a score from the table where the id is the parameter if
+     * there is such value.
+     *
+     * @param key the id for the Score that is to be deleted
+     */
     @Override
     public void delete(Integer key) throws SQLException {
 
@@ -88,11 +105,20 @@ public class ScoreDao implements Dao<Score, Integer> {
 
     }
 
+    /**
+     * Method deletes the score with the highest number from the table.
+     *
+     */
     public void deleteWorst() throws SQLException {
         List<Score> list = findBest();
         delete(list.get(list.size() - 1).getId());
     }
 
+    /**
+     * Method adds a Score to the database table
+     *
+     * @param score the score that is added to the table
+     */
     public void addScore(Score score) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + level + " (name, score) VALUES (?, ?)");
@@ -104,6 +130,13 @@ public class ScoreDao implements Dao<Score, Integer> {
         connection.close();
     }
 
+    /**
+     * Method finds and puts to a list the ten best scores from the database
+     * table. If the table has less than ten values, method puts to the list as
+     * many values as there are.
+     *
+     * @return List of the ten best scores in the database
+     */
     public List<Score> findBest() throws SQLException {
 
         Connection connection = database.getConnection();
@@ -131,6 +164,11 @@ public class ScoreDao implements Dao<Score, Integer> {
         return this.level;
     }
 
+    /**
+     * Method counts the number of values in the database.
+     *
+     * @return the number of values in the database
+     */
     public int numberOfScores() throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + level);
@@ -148,6 +186,16 @@ public class ScoreDao implements Dao<Score, Integer> {
         return number;
     }
 
+    /**
+     * Method compares the value given as parameter to the values in the table.
+     * If the score is good enouh to be on the list method returns true, if not
+     * it returns false.
+     *
+     * @param score the score that is to be compared with the scores in the
+     * database
+     *
+     * @return true if the score fits to the ten best scores, otherwise false
+     */
     public boolean checkIfGoodEnoughScore(int score) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + level + " WHERE score >= ?");
