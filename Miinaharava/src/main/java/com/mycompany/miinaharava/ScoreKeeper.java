@@ -41,7 +41,7 @@ public class ScoreKeeper {
     }
 
     /**
-     * Method updates the values of the scoreboard
+     * Method updates the values of the scoreboard by creating a new scoreboard
      */
     public void updateScoreBoard() {
 
@@ -87,9 +87,6 @@ public class ScoreKeeper {
     public void addNewScore(Score score) {
         try {
             this.inUse.addScore(score);
-            /*if (inUse.numberOfScores() >= 10) {
-            inUse.deleteWorst();
-            } */
         } catch (SQLException ex) {
             Logger.getLogger(ScoreKeeper.class.getName()).log(Level.SEVERE, null, ex);
         }

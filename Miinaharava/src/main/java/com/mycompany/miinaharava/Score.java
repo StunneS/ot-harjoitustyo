@@ -8,8 +8,8 @@ package com.mycompany.miinaharava;
 import java.util.Comparator;
 
 /**
- *Class is for handling the top scores of the game. If no name is entered,
- * the name is Anonym as default.
+ * Class is for handling the top scores of the game. If no name is entered, the
+ * name is Anonym as default.
  */
 public class Score {
 

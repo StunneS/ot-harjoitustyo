@@ -14,8 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
- *Class lists the top scores of a spesific ScoreDao into a VBox
- * 
+ * Class lists the top scores of a spesific ScoreDao into a VBox
+ *
  */
 public class ScoreBoard extends VBox {
 

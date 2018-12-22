@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *Class handles the creation and connecting to a database
+ * Class handles the creation and connecting to a database
  */
 public class Database {
 
@@ -29,7 +29,8 @@ public class Database {
     }
 
     /**
-     * Method is creates database with the given name, if it doesn't already exist
+     * Method is creates database with the given name, if it doesn't already
+     * exist
      */
     public void initDatabase() {
         File file = new File(database);
@@ -50,9 +51,10 @@ public class Database {
     }
 
     /**
-     * Method adds to the list the required commands for creating the database tables
+     * Method adds to the list the required commands for creating the database
+     * tables
      *
-     * @return list of the strings to create to the tables in the database  
+     * @return list of the strings to create to the tables in the database
      */
     private List<String> startingStatements() {
         ArrayList<String> starters = new ArrayList<>();

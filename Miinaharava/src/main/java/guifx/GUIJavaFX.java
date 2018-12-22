@@ -107,7 +107,6 @@ public class GUIJavaFX extends Application {
 
         window.setTitle("MineSweeper");
         window.setMinHeight(715);
-        //window.setMinWidth(800);
 
         BorderPane frame = new BorderPane();
 
@@ -272,9 +271,6 @@ public class GUIJavaFX extends Application {
                         } else if (button == MouseButton.SECONDARY) {
                             setButtonActionRight(xx, yy);
                         }
-                        /*else if(button==MouseButton.MIDDLE){
-                    tänne metodi että middlemouse avaa ympäröivät ruudut jos tarpeeksi pommeja merkitty
-                } */
                     }
                 });
                 buttonField.add(buttons[x][y], x, y);
@@ -351,8 +347,6 @@ public class GUIJavaFX extends Application {
         close.setOnAction((event) -> {
             Score newest = new Score(nameField.getText(), timer.getSeconds());
             scoreKeeper.addNewScore(newest);
-            //scoreKeeper.updateScoreBoard();
-            //scoreBoard = scoreKeeper.getScoreBoard();
             dialog.close();
         });
         dialogVbox.getChildren().add(close);

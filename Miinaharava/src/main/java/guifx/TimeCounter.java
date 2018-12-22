@@ -15,7 +15,7 @@ import javafx.util.Duration;
 import static javafx.util.Duration.seconds;
 
 /**
- *Class creates and handles the game timer
+ * Class creates and handles the game timer
  */
 public class TimeCounter extends Pane {
 
