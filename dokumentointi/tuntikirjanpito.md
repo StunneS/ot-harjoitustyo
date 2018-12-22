@@ -19,4 +19,5 @@
 | 19.12 | 3 | Tietokannan muodostamisen aloitus |
 | 20.12 | 3 | Tietokannan toiminnan luonti |
 | 21.12 | 4 | Testien lisäys ja JavaDoc -kuvausten luonti |
-|yht | 50 ||
+| 22.12 | 8 | Dokumentointi ja koodin lopullinen puhdistus ja tarkistus |
+|yht | 58 ||
