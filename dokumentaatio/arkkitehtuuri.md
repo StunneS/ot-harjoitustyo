@@ -38,7 +38,7 @@ Pakkauksessa miinaharava.database sijaitseva luokka ScoreDao huolehtii uusien Sc
 
 Koska testaus halutaan suorittaa ilman että oikeaan tietokantaan vaikutetaan, testauksessa hyödynnetään testitietokantaa "test.db".
 
-## Tietokanta
+### Tietokanta
 
 Sovellus tallentaa tietokantaan pelisuorituksen tekijän nimen sekä sekunttimäärän jossa suoritus on tehty. Joksaisella pelin vaikeusasteellaan on oma tietokantataulu, mutta ne sijaitsevat samassa tietokannassa. 
 
@@ -54,7 +54,7 @@ jossa id:n arvon määrää tietokanta itse.
 
 Tässä on kuvattuna sovelluksen toimintalogiikkaa muutamissa ohjelman toiminnan kannalta tärkeissä kohdissa sekvenssikaavioina.
 
-# Nolla pomminaapuria omaavan napin painallus
+### Nolla pomminaapuria omaavan napin painallus
 
 Kun pelissä painetaan nappia jolla on nolla pommia naapureina, ohjelma aukaisee kyseisen napin ympärillä olevista napeista kaikki ne joiden arvo on nolla tai jotka sijaitsevat nollan vieressä. Tapahtuma etenee ohjelmassa seuraavasti:
 
@@ -62,7 +62,7 @@ Kun pelissä painetaan nappia jolla on nolla pommia naapureina, ohjelma aukaisee
 
 Tässä oletettiin että peli ei täyttänyt voiton ehtoja ja metodi pysähtyi.
 
-# Reset -napin painaminen
+### Reset -napin painaminen
 
 Reset -napin painaminen aiheuttaa pelilaudan uudelleenkäynnistämisen, johon kuuluu pommien uudelleensijoittaminen ja ajastimen nollaaminen. Oletetaan että uudelleenkäynnistettävä taso on easy.
 
@@ -70,6 +70,16 @@ Reset -napin painaminen aiheuttaa pelilaudan uudelleenkäynnistämisen, johon ku
 
 Metodia updateScoreboard() ei näy kokonaan sekvenssikaaviossa mutta sen toiminta ei ole tärkeä tässä kuvauksessa. 
 
-# Pelin voittaminen ja arvon lisääminen tietokantaan
+### Arvon lisääminen tietokantaan
 
-Pelin voittaminen aiheuttaa sen että kaikki ruudukon arvot paljastetaan ja jos suorituksen aika on tarpeeksi hyvä, se lisätään tietokantaan. Oletetaan että taso jota käytämme on easy. 
+Pelin voittaminen aiheuttaa sen että kaikki ruudukon arvot paljastetaan ja jos suorituksen aika on tarpeeksi hyvä, se lisätään tietokantaan. Sekvenssikaavio alkaa siitä kun ohjelma on todennut että peli on voitettu.
+
+![](https://raw.githubusercontent.com/StunneS/ot-harjoitustyo/master/laskarit/AddingScoreToDb.png)
+
+### Muut toiminnallisuudet
+
+Vaikeustason vaihtamisen napit toimivat lahes samalla tavalla kuin reset-nappi,ja jos peli voitetaan mutta arvo ei ole tarpeeksi hyvä ohjelma ei laukaise voitto ruutua. Pelin häviö toimii siten että ohjelma katsoo että painettu nappi on pommi ja pysäyttää pelin.
+
+## Ohjelmaan jääneet heikkoudet
+
+Graafisessa käyttöliittymässä tapahtuu vielä pelilogiikkaan liittyviä tarkistuksia, kuten voiton tarkastus. Ohjelma ei myöskään näytä heti arvoa joka on lisätty tietokantaan, eikä kaikkia arvoja ole mahdollista nähdä, tai poistaa käyttäjän käskystä.
